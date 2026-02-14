@@ -5,7 +5,6 @@ import { Moon, Sun } from "lucide-react";
 
 function applyTheme(isDark: boolean) {
   document.documentElement.classList.toggle("dark", isDark);
-
   try {
     localStorage.setItem("theme", isDark ? "dark" : "light");
   } catch {}
@@ -16,16 +15,18 @@ export function ThemeToggle() {
 
   React.useEffect(() => {
     let initial = false;
-
     try {
       const saved = localStorage.getItem("theme");
       if (saved === "dark") initial = true;
       if (saved === "light") initial = false;
-      if (!saved) initial = window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+      if (!saved) {
+        initial =
+          window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+      }
     } catch {
-      initial = window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+      initial =
+        window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
     }
-
     setIsDark(initial);
     applyTheme(initial);
   }, []);
@@ -33,8 +34,6 @@ export function ThemeToggle() {
   return (
     <button
       type="button"
-      aria-label="Сменить тему"
-      aria-pressed={isDark}
       onClick={() =>
         setIsDark((v) => {
           const next = !v;
@@ -42,10 +41,13 @@ export function ThemeToggle() {
           return next;
         })
       }
-      className="p-2 -m-2 inline-flex items-center justify-center text-dark/70 hover:text-dark transition leading-none border-0 bg-transparent shadow-none"
+      className="inline-flex items-center justify-center text-dark/70 hover:text-dark transition
+                 w-8 h-8 p-0 bg-transparent border-0 shadow-none
+                 focus:outline-none focus-visible:ring-0"
+      aria-label="Сменить тему"
       title={isDark ? "Тёмная тема" : "Светлая тема"}
     >
-      {isDark ? <Sun size={18} strokeWidth={2} /> : <Moon size={18} strokeWidth={2} />}
+      {isDark ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
     </button>
   );
 }
