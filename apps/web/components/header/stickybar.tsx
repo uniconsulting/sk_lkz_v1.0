@@ -50,21 +50,21 @@ export function Stickybar({
           {/* Кнопки справа: “приклеиваем” вправо */}
           <div className="ml-auto flex items-center gap-3">
             <button
-              className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70"
+              className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center ui-icon-hover-accent1 ui-press"
               aria-label="Калькулятор расхода"
             >
               <Calculator className="h-6 w-6" aria-hidden />
             </button>
 
             <button
-              className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70"
+              className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center ui-icon-hover-accent1 ui-press"
               aria-label="Избранное"
             >
               <Heart className="h-6 w-6" aria-hidden />
             </button>
 
             <button
-              className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70"
+              className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center ui-icon-hover-accent1 ui-press"
               aria-label="Корзина"
             >
               <ShoppingCart className="h-6 w-6" aria-hidden />
