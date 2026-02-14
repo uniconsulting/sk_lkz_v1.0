@@ -1,23 +1,25 @@
-export enum OrderStatus {
-  Draft = 'draft',
-  PendingPayment = 'pending_payment',
-  Paid = 'paid',
-  Processing = 'processing',
-  Shipped = 'shipped',
-  Completed = 'completed',
-  Cancelled = 'cancelled',
-}
+export const ORDER_STATUSES = [
+  'DRAFT',
+  'PENDING_PAYMENT',
+  'PAID',
+  'PROCESSING',
+  'SHIPPED',
+  'COMPLETED',
+  'CANCELLED',
+] as const;
 
-export const orderStatusTransitions: Record<OrderStatus, OrderStatus[]> = {
-  [OrderStatus.Draft]: [OrderStatus.PendingPayment, OrderStatus.Cancelled],
-  [OrderStatus.PendingPayment]: [OrderStatus.Paid, OrderStatus.Cancelled],
-  [OrderStatus.Paid]: [OrderStatus.Processing, OrderStatus.Cancelled],
-  [OrderStatus.Processing]: [OrderStatus.Shipped, OrderStatus.Cancelled],
-  [OrderStatus.Shipped]: [OrderStatus.Completed],
-  [OrderStatus.Completed]: [],
-  [OrderStatus.Cancelled]: [],
+export type OrderStatus = (typeof ORDER_STATUSES)[number];
+
+export const allowedTransitions: Record<OrderStatus, OrderStatus[]> = {
+  DRAFT: ['PENDING_PAYMENT', 'CANCELLED'],
+  PENDING_PAYMENT: ['PAID', 'CANCELLED'],
+  PAID: ['PROCESSING', 'CANCELLED'],
+  PROCESSING: ['SHIPPED', 'CANCELLED'],
+  SHIPPED: ['COMPLETED'],
+  COMPLETED: [],
+  CANCELLED: [],
 };
 
 export function canTransitionOrderStatus(from: OrderStatus, to: OrderStatus): boolean {
-  return orderStatusTransitions[from].includes(to);
+  return allowedTransitions[from].includes(to);
 }

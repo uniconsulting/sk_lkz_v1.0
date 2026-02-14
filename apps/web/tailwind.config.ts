@@ -7,6 +7,7 @@ const config: Config = {
     extend: {
       colors: {
         bg: 'rgb(var(--color-bg) / <alpha-value>)',
+        fg: 'rgb(var(--color-fg) / <alpha-value>)',
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
         accent1: 'rgb(var(--color-accent1) / <alpha-value>)',
         accent2: 'rgb(var(--color-accent2) / <alpha-value>)',

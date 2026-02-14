@@ -54,8 +54,12 @@ async function main() {
       data: {
         productId: product.id,
         retailPrice: 1500 + idx * 100,
-        wholesalePrice: 1300 + idx * 100,
-        partnerPrice: 1200 + idx * 100,
+        smallWholesalePrice: 1300 + idx * 100,
+        largeWholesalePrice: 1200 + idx * 100,
+        smallWholesaleMinQty: 5,
+        smallWholesaleStep: 5,
+        largeWholesaleMinQty: 20,
+        largeWholesaleStep: 10,
         promoDiscountPercent: 10,
       },
     });

@@ -1,3 +1,3 @@
-export default function Page() {
-  return <main className="p-8">/search</main>;
+export default function SearchPage() {
+  return <main className="p-6">Поиск</main>;
 }

@@ -10,6 +10,7 @@
 
 :root {
   --color-bg: 255 255 255;
+  --color-fg: 38 41 46;
   --color-primary: 122 114 233;
   --color-accent1: 156 175 136;
   --color-accent2: 198 207 19;
@@ -18,6 +19,7 @@
 
 .dark {
   --color-bg: 38 41 46;
+  --color-fg: 255 255 255;
   --color-primary: 122 114 233;
   --color-accent1: 156 175 136;
   --color-accent2: 198 207 19;
@@ -25,5 +27,5 @@
 }
 
 body {
-  @apply bg-bg text-dark;
+  @apply bg-bg text-fg;
 }

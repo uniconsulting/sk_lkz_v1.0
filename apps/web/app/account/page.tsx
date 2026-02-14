@@ -1,3 +1,3 @@
-export default function Page() {
-  return <main className="p-8">/account</main>;
+export default function AccountPage() {
+  return <main className="p-6">Личный кабинет</main>;
 }

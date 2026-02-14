@@ -1,3 +1,3 @@
-export default function Page() {
-  return <main className="p-8">/admin</main>;
+export default function AdminPage() {
+  return <main className="p-6">Админ-панель</main>;
 }
