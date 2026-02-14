@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TODO: replace with actual Garet font files in public/fonts */
+@font-face {
+  font-family: 'Garet';
+  src: local('Arial');
+}
+
+:root {
+  --color-bg: 255 255 255;
+  --color-primary: 122 114 233;
+  --color-accent1: 156 175 136;
+  --color-accent2: 198 207 19;
+  --color-dark: 38 41 46;
+}
+
+.dark {
+  --color-bg: 38 41 46;
+  --color-primary: 122 114 233;
+  --color-accent1: 156 175 136;
+  --color-accent2: 198 207 19;
+  --color-dark: 38 41 46;
+}
+
+body {
+  @apply bg-bg text-dark;
+}
