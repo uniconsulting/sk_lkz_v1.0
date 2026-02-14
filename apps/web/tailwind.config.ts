@@ -38,7 +38,7 @@ const config: Config = {
         16: '64px',
       },
       fontFamily: {
-        sans: ['Garet', 'system-ui', 'sans-serif'],
+        sans: ["var(--font-garet)", "system-ui", "Arial", "sans-serif"],
       },
     },
   },
