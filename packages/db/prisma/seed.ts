@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -24,10 +24,10 @@ async function main() {
   ]);
 
   const users = [
-    { email: 'admin@simbirsk.local', name: 'Admin User', role: Role.ADMIN },
-    { email: 'sales@simbirsk.local', name: 'Sales User', role: Role.SALES },
-    { email: 'b2c@simbirsk.local', name: 'B2C User', role: Role.B2C },
-    { email: 'b2b@simbirsk.local', name: 'B2B User', role: Role.B2B },
+    { email: 'admin@simbirsk.local', name: 'Admin User', role: 'ADMIN' },
+    { email: 'sales@simbirsk.local', name: 'Sales User', role: 'SALES' },
+    { email: 'b2c@simbirsk.local', name: 'B2C User', role: 'B2C' },
+    { email: 'b2b@simbirsk.local', name: 'B2B User', role: 'B2B' },
   ];
 
   await prisma.user.createMany({ data: users });
