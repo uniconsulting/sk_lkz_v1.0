@@ -20,14 +20,14 @@ export function Stickybar({
   return (
     <div className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
       {/* было py-3, увеличиваем верхний отступ от линии */}
-      <Container className="pt-6 pb-3">
+      <Container className="pt-5 pb-3">
         <div className="flex items-center gap-4">
           {/* Общая пилюля: каталог + поиск */}
-          <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[920px]">
+          <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[1080px]">
             {/* Каталог: уменьшаем расстояние иконка-текст */}
             <button
               type="button"
-              className="h-12 inline-flex items-center gap-3 text-white font-semibold hover:opacity-90 transition px-2"
+              className="h-12 inline-flex items-center gap-4 text-white font-semibold hover:opacity-90 transition px-2"
               aria-label="Каталог продукции"
             >
               {/* БЕЗ широкого враппера w-10/w-12: он и даёт ощущение “километра” */}
