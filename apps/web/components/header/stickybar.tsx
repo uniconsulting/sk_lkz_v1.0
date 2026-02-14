@@ -100,7 +100,7 @@ export function Stickybar({
   </button>
 
   {/* Поиск: между кнопкой и поиском работает тот же gap-4 у родителя */}
-  <div className="header-search glass-border bg-white h-12 flex-1 rounded-[20px] px-4 flex items-center gap-3">
+  <div className="header-search glass-border bg-white h-12 flex-1 rounded-[18px] px-4 flex items-center gap-3">
     <span className="text-accent1">
       <SearchIcon />
     </span>
