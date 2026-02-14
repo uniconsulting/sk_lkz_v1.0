@@ -7,43 +7,60 @@ export type StickybarProps = {
 
 function BurgerIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
-      <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5">
+      <path
+        d="M4 7h16M4 12h16M4 17h16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 function SearchIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" className="text-accent1">
+    <svg width="18" height="18" viewBox="0 0 24 24" className="w-5 h-5">
       <path
         d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
       />
-      <path d="M21 21l-4.3-4.3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="M21 21l-4.3-4.3"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 
 function CalcIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+    <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5">
       <path
         d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
       />
-      <path d="M8 8h8M8 12h3M13 12h3M8 16h3M13 16h3" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M8 8h8M8 12h3M13 12h3M8 16h3M13 16h3"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
     </svg>
   );
 }
 
 function HeartIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+    <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5">
       <path
         d="M12 21s-7-4.6-9.5-8.7C.5 8.7 2.7 6 5.7 6c1.8 0 3.3 1 4.3 2.2C11 7 12.5 6 14.3 6c3 0 5.2 2.7 3.2 6.3C19 16.4 12 21 12 21z"
         fill="none"
@@ -57,7 +74,7 @@ function HeartIcon() {
 
 function CartIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+    <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5">
       <path d="M6 6h15l-2 9H7L6 6z" fill="none" stroke="currentColor" strokeWidth="2" />
       <path d="M6 6L5 3H2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <circle cx="9" cy="20" r="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
@@ -68,14 +85,20 @@ function CartIcon() {
 
 function UserIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+    <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5">
       <path
         d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
       />
-      <path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path
+        d="M4 21a8 8 0 0 1 16 0"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -85,37 +108,41 @@ export function Stickybar({
   searchPlaceholder = 'умный поиск и не только...',
 }: StickybarProps) {
   return (
-    <div className="sticky top-0 z-50 bg-bg/70 backdrop-blur-md">
+    <div className="sticky top-0 z-50 bg-bg/80 backdrop-blur-md border-b border-fg/10">
       <Container className="py-4">
-        <div className="header-dock h-16 px-4 flex items-center gap-4">
-          <button
-            type="button"
-            className="header-catalog h-12 px-5 rounded-xl flex items-center gap-4"
-            aria-label="Каталог продукции"
-          >
-            <BurgerIcon />
-            <span className="text-sm font-semibold uppercase tracking-wide">{catalogLabel}</span>
-          </button>
+        <div className="flex items-center gap-4">
+          {/* Левая зелёная капсула: только каталог + поиск */}
+          <div className="header-dock h-16 px-4 flex items-center gap-4 flex-1">
+            <button
+              type="button"
+              className="header-catalog h-12 px-5 rounded-xl flex items-center gap-4 text-white"
+              aria-label="Каталог продукции"
+            >
+              <BurgerIcon />
+              <span className="text-sm font-semibold uppercase tracking-wide">{catalogLabel}</span>
+            </button>
 
-          <div className="header-search h-12 flex-1 px-4 flex items-center gap-3">
-            <SearchIcon />
-            <input
-              className="w-full bg-transparent outline-none text-sm placeholder:text-fg/45"
-              placeholder={searchPlaceholder}
-            />
+            <div className="header-search h-12 flex-1 px-4 flex items-center gap-3 text-accent1">
+              <SearchIcon />
+              <input
+                className="w-full bg-transparent outline-none text-sm text-fg placeholder:text-fg/45"
+                placeholder={searchPlaceholder}
+              />
+            </div>
           </div>
 
+          {/* Правая группа иконок: отдельно, на белом фоне */}
           <div className="flex items-center gap-3">
-            <button className="header-icon h-12 w-12" aria-label="Калькулятор расхода">
+            <button className="header-icon h-12 w-12 text-fg/70" aria-label="Калькулятор расхода">
               <CalcIcon />
             </button>
-            <button className="header-icon h-12 w-12" aria-label="Избранное">
+            <button className="header-icon h-12 w-12 text-fg/70" aria-label="Избранные">
               <HeartIcon />
             </button>
-            <button className="header-icon h-12 w-12" aria-label="Корзина">
+            <button className="header-icon h-12 w-12 text-fg/70" aria-label="Корзина">
               <CartIcon />
             </button>
-            <button className="header-icon header-icon--accent h-12 w-12" aria-label="Личный кабинет">
+            <button className="header-icon header-icon--accent h-12 w-12 text-white" aria-label="Личный кабинет">
               <UserIcon />
             </button>
           </div>
