@@ -9,12 +9,10 @@ export const metadata: Metadata = {
   description: 'Интернет-магазин лакокрасочной продукции',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" suppressHydrationWarning>
-      <body className="min-h-screen bg-bg text-fg">
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+    <html lang="ru" className={garet.variable}>
+      <body className="bg-bg text-fg font-sans">{children}</body>
     </html>
   );
 }
