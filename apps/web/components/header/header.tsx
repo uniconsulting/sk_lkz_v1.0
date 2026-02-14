@@ -1,12 +1,19 @@
-import { Topbar } from "./topbar";
 import { Stickybar } from "./stickybar";
+import { Topbar, type TopNavItem } from "./topbar";
 
-export function Header() {
+export type HeaderProps = {
+  logoSlot?: React.ReactNode;
+  nav: TopNavItem[];
+  regionLabel: string;
+  phoneLabel: string;
+  phoneHref: string;
+};
+
+export function Header(props: HeaderProps) {
   return (
-    <header className="w-full bg-white">
-      <Topbar />
-      {/* Разделитель между частями хедера: #26292e / 20% */}
-      <div className="h-px w-full bg-[#26292e]/20" />
+    <header className="w-full">
+      <Topbar {...props} />
+      <div className="h-4" aria-hidden />
       <Stickybar />
     </header>
   );
