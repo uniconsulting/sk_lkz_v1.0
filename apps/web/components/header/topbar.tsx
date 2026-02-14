@@ -63,13 +63,13 @@ export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: To
               <span className="whitespace-nowrap">{regionLabel}</span>
             </button>
 
-            <div className="flex items-center gap-3">
-              <a
-                href={phoneHref}
-                className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
-              >
-                {phoneLabel}
-              </a>
+<div className="flex items-center gap-3 whitespace-nowrap">
+  <a
+    href={phoneHref}
+    className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
+  >
+    {phoneLabel}
+  </a>
 
               <ThemeToggle />
             </div>
