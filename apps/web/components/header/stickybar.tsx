@@ -127,7 +127,7 @@ export function Stickybar({
           </div>
 
           {/* Иконки справа */}
-          <div className="flex items-center gap-3">
+          <div className="ml-auto flex items-center gap-3">
             <button
               className="header-icon glass-border h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70"
               aria-label="Калькулятор расхода"
