@@ -32,7 +32,7 @@ export function Stickybar({
             >
               {/* БЕЗ широкого враппера w-10/w-12: он и даёт ощущение “километра” */}
               <Menu className="h-6 w-6" aria-hidden />
-              <span className="text-sm leading-none whitespace-nowrap">
+              <span className="text-base leading-none whitespace-nowrap">
                 {catalogLabel}
               </span>
             </button>
