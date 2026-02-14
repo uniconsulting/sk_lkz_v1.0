@@ -77,7 +77,7 @@ export function ThemeToggle() {
           return next;
         });
       }}
-      className="h-9 w-9 rounded-full border border-dark/20 text-dark/70 inline-flex items-center justify-center hover:text-dark transition"
+      className="h-6 w-6 inline-flex items-center justify-center text-dark/70 hover:text-dark transition leading-none p-0 border-0 bg-transparent shadow-none"
       title={isDark ? "Тёмная тема" : "Светлая тема"}
     >
       {isDark ? <SunIcon /> : <MoonIcon />}
