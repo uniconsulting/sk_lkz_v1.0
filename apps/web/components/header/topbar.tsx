@@ -34,7 +34,7 @@ export function Topbar({
                 <li key={item.href} className="flex items-center">
                   <Link
                     href={item.href}
-                    className="hover:text-dark/60 transition-colors"
+                    className="ui-hover-accent">
                   >
                     {item.label}
                   </Link>
@@ -64,7 +64,7 @@ export function Topbar({
 
             <a
               href={phoneHref}
-              className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
+              className="text-dark font-semibold whitespace-nowrap ui-hover-accent"
             >
               {phoneLabel}
             </a>
