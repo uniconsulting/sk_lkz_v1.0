@@ -1,9 +1,9 @@
-import './globals.css';
 import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Симбирские краски',
-  description: 'Интернет-магазин лакокрасочных материалов',
+  description: 'Интернет-магазин',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
