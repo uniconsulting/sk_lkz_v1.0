@@ -1,3 +1,3 @@
-export default function CheckoutPage() {
-  return <main className="p-6">Оформление заказа</main>;
+export default function Page() {
+  return <main className="p-8">/checkout</main>;
 }

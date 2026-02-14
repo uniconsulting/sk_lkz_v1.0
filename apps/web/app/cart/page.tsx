@@ -1,3 +1,3 @@
-export default function CartPage() {
-  return <main className="p-6">Корзина</main>;
+export default function Page() {
+  return <main className="p-8">/cart</main>;
 }

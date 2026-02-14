@@ -1,3 +1,3 @@
-export default function CatalogPage() {
-  return <main className="p-6">Каталог</main>;
+export default function Page() {
+  return <main className="p-8">/catalog</main>;
 }

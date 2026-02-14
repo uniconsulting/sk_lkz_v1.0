@@ -71,12 +71,8 @@ model ProductPricing {
   productId            String   @unique
   product              Product  @relation(fields: [productId], references: [id])
   retailPrice          Decimal  @db.Decimal(10, 2)
-  smallWholesalePrice  Decimal  @db.Decimal(10, 2)
-  largeWholesalePrice  Decimal  @db.Decimal(10, 2)
-  smallWholesaleMinQty Int      @default(1)
-  smallWholesaleStep   Int      @default(1)
-  largeWholesaleMinQty Int      @default(1)
-  largeWholesaleStep   Int      @default(1)
+  wholesalePrice       Decimal  @db.Decimal(10, 2)
+  partnerPrice         Decimal  @db.Decimal(10, 2)
   promoDiscountPercent Int      @default(0)
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
