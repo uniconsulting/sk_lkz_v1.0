@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <main>Главная страница</main>;
+  return <main className="p-6">Главная страница</main>;
 }
