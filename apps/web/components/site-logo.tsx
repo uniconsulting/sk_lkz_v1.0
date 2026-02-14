@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 type SiteLogoProps = {
   /** По умолчанию для хедера */
@@ -14,19 +15,15 @@ function withBasePath(path: string) {
   return `${base}${normalized}`;
 }
 
-export function SiteLogo({
-  src = "/logo1.png",
-  alt = "Симбирские краски",
-  className = "",
-}: SiteLogoProps) {
+export function SiteLogo() {
   return (
-    <Link href="/" className={`inline-flex items-center ${className}`} aria-label={alt}>
-      <img
-        src={withBasePath(src)}
-        alt={alt}
-        className="h-12 w-auto select-none"
-        draggable={false}
-      />
-    </Link>
+    <Image
+      src="/logo1.png"
+      alt="СИМБИРСКИЕ КРАСКИ"
+      width={140}
+      height={36}
+      priority
+      className="h-9 w-auto"
+    />
   );
 }
