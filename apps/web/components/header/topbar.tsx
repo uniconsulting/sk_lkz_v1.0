@@ -27,11 +27,11 @@ function PinIcon() {
 
 export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: TopbarProps) {
   return (
-    <div className="w-full border-b border-fg/10">
+    <div className="w-full border-b border-fg/20">
       <Container className="h-14 flex items-center justify-between gap-6">
         <div className="flex items-center gap-3 min-w-[220px]">{logoSlot}</div>
 
-        <nav className="hidden md:flex items-center text-sm text-fg/45">
+        <nav className="hidden md:flex items-center text-sm text-fg/40">
           {nav.map((item, i) => (
             <div key={item.href} className="flex items-center">
               <Link href={item.href} className="px-3 hover:text-fg transition">
@@ -45,14 +45,14 @@ export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: To
         <div className="flex items-center gap-6 text-sm">
           <button
             type="button"
-            className="hidden sm:flex items-center gap-2 text-fg/70 hover:text-fg transition"
+            className="hidden sm:flex items-center gap-2 text-fg hover:text-fg transition">
             aria-label="Выбор региона"
           >
             <PinIcon />
             <span className="whitespace-nowrap">{regionLabel}</span>
           </button>
 
-          <a href={phoneHref} className="text-fg/80 hover:text-fg transition whitespace-nowrap font-medium">
+          <a href={phoneHref} className="text-fg hover:text-fg transition whitespace-nowrap font-semibold">
             {phoneLabel}
           </a>
         </div>
