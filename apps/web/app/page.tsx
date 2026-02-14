@@ -1,7 +1,7 @@
 'use client';
 
-import { Header } from '@sk/ui';
 import { Container, Card } from '@sk/ui';
+import { Header } from '../components/header';
 import { SiteLogo } from '../components/site-logo';
 
 export default function HomePage() {
