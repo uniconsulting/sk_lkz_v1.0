@@ -2,30 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO: replace with actual Garet font files in public/fonts */
-@font-face {
-  font-family: 'Garet';
-  src: local('Arial');
-}
-
+/* 5-color tokens (RGB channels) */
 :root {
-  --color-bg: 255 255 255;
-  --color-fg: 38 41 46;
-  --color-primary: 122 114 233;
-  --color-accent1: 156 175 136;
-  --color-accent2: 198 207 19;
-  --color-dark: 38 41 46;
+  --color-bg: 255 255 255;   /* #ffffff */
+  --color-fg: 38 41 46;      /* #26292e */
+
+  --color-primary: 122 114 233; /* #7a72e9 */
+  --color-accent1: 156 175 136; /* #9caf88 */
+  --color-accent2: 198 207 19;  /* #c6cf13 */
+  --color-dark: 38 41 46;       /* #26292e */
+
+  /* 4px-based radii baseline */
+  --radius-1: 8px;
+  --radius-2: 12px;
+  --radius-3: 16px;
+  --radius-4: 20px;
+  --radius-5: 24px;
+
+  color-scheme: light;
 }
 
 .dark {
-  --color-bg: 38 41 46;
+  --color-bg: 38 41 46;   /* dark background */
   --color-fg: 255 255 255;
-  --color-primary: 122 114 233;
-  --color-accent1: 156 175 136;
-  --color-accent2: 198 207 19;
-  --color-dark: 38 41 46;
+
+  color-scheme: dark;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
-  @apply bg-bg text-fg;
+  background: rgb(var(--color-bg));
+  color: rgb(var(--color-fg));
+  font-family: Garet, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Glass primitives */
+.glass {
+  background: rgb(var(--color-bg) / 0.60);
+  border: 1px solid rgb(var(--color-fg) / 0.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass-strong {
+  background: rgb(var(--color-bg) / 0.75);
+  border: 1px solid rgb(var(--color-fg) / 0.12);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+/* subtle dynamic border illusion (allowed: opacity only) */
+.glass-border {
+  box-shadow:
+    0 0 0 1px rgb(var(--color-fg) / 0.08) inset,
+    0 1px 0 0 rgb(var(--color-bg) / 0.35) inset;
+}
+
+/* focus ring */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(var(--color-primary) / 0.45);
 }
