@@ -6,4 +6,3 @@ export * from './input';
 export * from './icon-button';
 export * from './switch';
 export * from './bento';
-export * from './header';
