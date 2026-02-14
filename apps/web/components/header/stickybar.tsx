@@ -80,36 +80,37 @@ export function Stickybar({
       <Container className="py-3">
         <div className="flex items-center gap-4">
           {/* Общая пилюля: каталог + поиск */}
-<div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[920px]">
-  {/* Каталог: один интервал внутри, без лишнего padding */}
-  <button
-    type="button"
-    className="h-12 flex items-center gap-4 text-white font-semibold hover:opacity-90 transition pl-0 pr-0"
-    aria-label="Каталог продукции"
-  >
-    {/* Иконка каталога */}
-  <span className="h-10 w-10 inline-flex items-center justify-center">
-    <BurgerIcon />
-  </span>
+          <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[920px]">
+            {/* Каталог */}
+            <button
+              type="button"
+              className="h-12 flex items-center gap-4 text-white font-semibold hover:opacity-90 transition"
+              aria-label="Каталог продукции"
+            >
+              <span className="h-10 w-10 inline-flex items-center justify-center">
+                <BurgerIcon />
+              </span>
+              <span className="text-sm leading-none">{catalogLabel}</span>
+            </button>
 
-  <span className="text-sm leading-none">{catalogLabel}</span>
-</button>
+            {/* Поиск */}
+            <div className="header-search glass-border bg-white h-12 flex-1 rounded-[18px] px-4 flex items-center gap-3">
+              <span className="text-accent1">
+                <SearchIcon />
+              </span>
+              <input
+                className="w-full bg-transparent outline-none text-sm text-fg placeholder:text-fg/40"
+                placeholder={searchPlaceholder}
+              />
+            </div>
+          </div>
 
-    {/* Текст каталога */}
-    <span className="text-sm leading-none">{catalogLabel}</span>
-  </button>
-
-  {/* Поиск: между кнопкой и поиском работает тот же gap-4 у родителя */}
-  <div className="header-search glass-border bg-white h-12 flex-1 rounded-[18px] px-4 flex items-center gap-3">
-    <span className="text-accent1">
-      <SearchIcon />
-    </span>
-    <input
-      className="w-full bg-transparent outline-none text-sm text-fg placeholder:text-fg/40"
-      placeholder={searchPlaceholder}
-    />
-  </div>
-</div>
+          {/* тут дальше у тебя идут правые кнопки */}
+        </div>
+      </Container>
+    </div>
+  );
+}
 
           {/* Иконки справа */}
           <div className="flex items-center gap-3">
