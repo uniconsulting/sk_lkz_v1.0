@@ -101,16 +101,16 @@ export function Stickybar({
 
           {/* Иконки справа: квадратные, радиус 24, высота как у пилюли */}
           <div className="flex items-center gap-3">
-            <button className="header-icon glass-border h-16 w-16 rounded-3xl text-fg/70" aria-label="Калькулятор расхода">
+            <button className="header-icon glass-border h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70" aria-label="Калькулятор расхода">
               <CalcIcon />
             </button>
-            <button className="header-icon glass-border h-16 w-16 rounded-3xl text-fg/70" aria-label="Избранное">
+            <button className="header-icon glass-border h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70" aria-label="Избранное">
               <HeartIcon />
             </button>
-            <button className="header-icon glass-border h-16 w-16 rounded-3xl text-fg/70" aria-label="Корзина">
+            <button className="header-icon glass-border h-16 w-16 rounded-3xl inline-flex items-center justify-center text-fg/70" aria-label="Корзина">
               <CartIcon />
             </button>
-            <button className="header-icon header-icon--accent glass-border h-16 w-16 rounded-3xl text-white" aria-label="Вход в ЛК">
+            <button className="header-icon header-icon--accent glass-border h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white" aria-label="Вход в ЛК">
               <UserIcon />
             </button>
           </div>
