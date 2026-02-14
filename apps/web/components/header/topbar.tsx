@@ -34,7 +34,7 @@ export function Topbar({
                 <li key={item.href} className="flex items-center">
                   <Link
                     href={item.href}
-                    className="ui-hover-accent">
+                    className="ui-hover-accent"
                   >
                     {item.label}
                   </Link>
