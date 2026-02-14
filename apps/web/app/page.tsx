@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { Container, Card } from '@sk/ui';
-import { Header } from '../components/header';
-import { SiteLogo } from '../components/site-logo';
+import { Container } from "@sk/ui";
+import { Header } from "../components/header";
+import { SiteLogo } from "../components/site-logo";
+import { HomeBanner } from "../components/home-banner";
 
 export default function HomePage() {
   return (
@@ -10,10 +11,10 @@ export default function HomePage() {
       <Header
         logoSlot={<SiteLogo />}
         nav={[
-          { label: 'как заказать', href: '#how' },
-          { label: 'купить оптом', href: '#b2b' },
-          { label: 'дилерам', href: '#dealers' },
-          { label: 'блог и новости', href: '#blog' },
+          { label: "как заказать", href: "#how" },
+          { label: "купить оптом", href: "#b2b" },
+          { label: "дилерам", href: "#dealers" },
+          { label: "блог и новости", href: "#blog" },
         ]}
         regionLabel="Ульяновск"
         phoneLabel="+7 (964) 858-99-10"
@@ -22,13 +23,7 @@ export default function HomePage() {
 
       <main className="py-6">
         <Container>
-          <Card className="p-0 overflow-hidden">
-            <div className="w-full" style={{ height: 400 }}>
-              <div className="h-full w-full flex items-center justify-center text-fg/60">
-                Баннер 1416×400 (карусель из админки) - заглушка
-              </div>
-            </div>
-          </Card>
+          <HomeBanner />
         </Container>
       </main>
     </div>
