@@ -1,28 +1,39 @@
 import Image from "next/image";
 
-type SiteLogoProps = {
-  /** По умолчанию для хедера */
-  src?: string; // например "/logo1.png" или "/logo2.png"
+export type SiteLogoProps = {
+  /** Например "/logo1.png" или "/logo2.png" */
+  src?: string;
   alt?: string;
   className?: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
 };
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 function withBasePath(path: string) {
-  // Если у тебя на Pages есть basePath вида /sk_lkz_v1.0, добавь его в env как NEXT_PUBLIC_BASE_PATH
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const normalized = path.startsWith("/") ? path : `/${path}`;
-  return `${base}${normalized}`;
+  return `${BASE}${normalized}`;
 }
 
-export function SiteLogo() {
+export function SiteLogo({
+  src = "/logo1.png",
+  alt = "СИМБИРСКИЕ КРАСКИ",
+  className = "h-9 w-auto",
+  width = 140,
+  height = 36,
+  priority = true,
+}: SiteLogoProps) {
   return (
     <Image
-      src="/logo1.png"
-      alt="СИМБИРСКИЕ КРАСКИ"
-      width={140}
-      height={36}
-      priority
-      className="h-9 w-auto"
+      src={withBasePath(src)}
+      alt={alt}
+      width={width}
+      height={height}
+      priority={priority}
+      className={className}
+      unoptimized
     />
   );
 }
