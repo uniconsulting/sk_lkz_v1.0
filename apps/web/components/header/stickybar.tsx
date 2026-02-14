@@ -38,10 +38,10 @@ export function Stickybar({
             </button>
 
             {/* Поиск: белая пилюля */}
-            <div className="header-search glass-border bg-white h-12 flex-1 rounded-[18px] px-4 flex items-center gap-3">
+            <div className="header-search glass-border ui-focus-glass ui-search-wrap bg-white h-12 flex-1 rounded-[18px] px-4 flex items-center gap-3">
               <Search className="h-5 w-5 text-accent1" aria-hidden />
               <input
-                className="w-full bg-transparent outline-none text-sm text-fg placeholder:text-fg/40"
+                className="w-full ui-search-icon bg-transparent outline-none text-sm text-fg placeholder:text-fg/40"
                 placeholder={searchPlaceholder}
               />
             </div>
