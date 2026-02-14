@@ -7,8 +7,14 @@ export type StickybarProps = {
 
 function BurgerIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5">
-      <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg width="18" height="18" viewBox="0 0 24 24" className="block">
+      <path
+        d="M4 7h16M4 12h16M4 17h16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -74,7 +80,7 @@ export function Stickybar({
       <Container className="py-3">
         <div className="flex items-center gap-4">
           {/* Общая пилюля: каталог + поиск */}
-<div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1">
+<div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[920px]">
   {/* Каталог: один интервал внутри, без лишнего padding */}
   <button
     type="button"
@@ -82,9 +88,12 @@ export function Stickybar({
     aria-label="Каталог продукции"
   >
     {/* Иконка каталога */}
-    <span className="h-12 w-12 inline-flex items-center justify-center">
-      <BurgerIcon />
-    </span>
+  <span className="h-10 w-10 inline-flex items-center justify-center">
+    <BurgerIcon />
+  </span>
+
+  <span className="text-sm leading-none">{catalogLabel}</span>
+</button>
 
     {/* Текст каталога */}
     <span className="text-sm leading-none">{catalogLabel}</span>
