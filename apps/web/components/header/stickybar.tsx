@@ -20,7 +20,7 @@ export function Stickybar({
   return (
     <div className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
       {/* было py-3, увеличиваем верхний отступ от линии */}
-      <Container className="pt-4 pb-4">
+      <Container className="pt-6 pb-3">
         <div className="flex items-center gap-4">
           {/* Общая пилюля: каталог + поиск */}
           <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[920px]">
