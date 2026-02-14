@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Container } from "@sk/ui";
+import { ThemeToggle } from "./theme-toggle";
 
 export type TopNavItem = { label: string; href: string };
 
@@ -22,25 +23,12 @@ function PinIcon() {
         strokeWidth="2"
         strokeLinejoin="round"
       />
-      <circle
-        cx="12"
-        cy="10"
-        r="2.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
 }
 
-export function Topbar({
-  logoSlot,
-  nav,
-  regionLabel,
-  phoneLabel,
-  phoneHref,
-}: TopbarProps) {
+export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: TopbarProps) {
   return (
     <div className="w-full bg-bg border-b border-dark/10">
       <Container className="py-5">
@@ -51,18 +39,12 @@ export function Topbar({
             <ul className="flex items-center">
               {nav.map((item, idx) => (
                 <li key={item.href} className="flex items-center">
-                  <Link
-                    href={item.href}
-                    className="hover:text-dark/60 transition-colors"
-                  >
+                  <Link href={item.href} className="hover:text-dark/60 transition-colors">
                     {item.label}
                   </Link>
 
                   {idx !== nav.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="mx-6 inline-block h-4 w-px bg-dark/10"
-                    />
+                    <span aria-hidden className="mx-6 inline-block h-4 w-px bg-dark/10" />
                   )}
                 </li>
               ))}
@@ -81,12 +63,16 @@ export function Topbar({
               <span className="whitespace-nowrap">{regionLabel}</span>
             </button>
 
-            <a
-              href={phoneHref}
-              className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
-            >
-              {phoneLabel}
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={phoneHref}
+                className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
+              >
+                {phoneLabel}
+              </a>
+
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </Container>
