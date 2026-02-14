@@ -4,6 +4,7 @@ import { Container } from "@sk/ui";
 import { Header } from "../components/header";
 import { SiteLogo } from "../components/site-logo";
 import { HomeBanner } from "../components/home-banner";
+import { HomeCategories } from "../components/home-categories";
 
 export default function HomePage() {
   return (
@@ -22,11 +23,11 @@ export default function HomePage() {
       />
 
       <main className="py-6">
-        <Container>
+        <Container className="space-y-6">
           <HomeBanner />
+          <HomeCategories />
         </Container>
       </main>
     </div>
   );
 }
-
