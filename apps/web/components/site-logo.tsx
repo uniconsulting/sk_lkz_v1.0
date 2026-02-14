@@ -1,35 +1,32 @@
-import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 type SiteLogoProps = {
+  /** По умолчанию для хедера */
+  src?: string; // например "/logo1.png" или "/logo2.png"
+  alt?: string;
   className?: string;
 };
 
-export function SiteLogo({ className }: SiteLogoProps) {
-  return (
-    <Link
-      href="/"
-      className={`flex items-center gap-3 ${className ?? ""}`}
-      aria-label="Симбирские краски"
-    >
-      <Image
-        src="/logo1.png"
-        alt="Симбирские краски"
-        width={56}
-        height={56}
-        priority
-        className="h-14 w-14 rounded-full"
-      />
+function withBasePath(path: string) {
+  // Если у тебя на Pages есть basePath вида /sk_lkz_v1.0, добавь его в env как NEXT_PUBLIC_BASE_PATH
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}`;
+}
 
-      <div className="leading-none">
-        <div className="text-[12px] tracking-[0.18em] text-primary font-medium">
-          СИМБИРСКИЕ
-        </div>
-        <div className="text-[22px] tracking-[0.02em] text-dark font-semibold">
-          КРАСКИ
-        </div>
-      </div>
+export function SiteLogo({
+  src = "/logo1.png",
+  alt = "Симбирские краски",
+  className = "",
+}: SiteLogoProps) {
+  return (
+    <Link href="/" className={`inline-flex items-center ${className}`} aria-label={alt}>
+      <img
+        src={withBasePath(src)}
+        alt={alt}
+        className="h-12 w-auto select-none"
+        draggable={false}
+      />
     </Link>
   );
 }
