@@ -1,0 +1,28 @@
+{
+  "name": "simbirskie-kraski-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "pnpm --filter @sk/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "db:migrate": "pnpm --filter @sk/db db:migrate",
+    "db:seed": "pnpm --filter @sk/db db:seed",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.6",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md,yml,yaml,css}": [
+      "pnpm exec prettier --write"
+    ]
+  }
+}
