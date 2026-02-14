@@ -110,7 +110,7 @@ function UserIcon() {
 }
 
 export function Stickybar({
-  catalogLabel = "каталог продукции",
+  catalogLabel = "Каталог продукции",
   searchPlaceholder = "умный поиск и не только...",
 }: StickybarProps) {
   const catalogText =
@@ -118,29 +118,27 @@ export function Stickybar({
       ? catalogLabel.charAt(0).toLowerCase() + catalogLabel.slice(1)
       : catalogLabel;
 
-  const dockClass =
-    "h-16 flex-1 rounded-[24px] bg-[#9caf88] p-2 pr-4 flex items-center gap-4 " +
-    "border border-white/35 shadow-[0_1px_0_rgba(255,255,255,0.55)_inset]";
+  const dock =
+    "h-16 flex-1 rounded-[24px] bg-accent1 p-2 pr-2 flex items-center gap-4 " +
+    "border border-white/35 shadow-[0_1px_0_rgba(255,255,255,0.65)_inset]";
 
-  const searchClass =
-    "h-12 flex-1 rounded-[20px] bg-white/90 px-4 flex items-center gap-3 " +
-    "border border-white/60 shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]";
+  const search =
+    "h-12 flex-1 rounded-[20px] px-4 flex items-center gap-3 bg-white/90 " +
+    "border border-white/55 shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]";
 
   const iconBtn =
     "h-16 w-16 rounded-[24px] inline-flex items-center justify-center leading-none " +
-    "border border-[#26292e]/15 bg-white/30 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset] " +
-    "text-[#26292e]/70";
+    "bg-white/25 border border-white/45 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset] text-fg/70";
 
   const iconBtnAccent =
     "h-16 w-16 rounded-[24px] inline-flex items-center justify-center leading-none " +
-    "bg-[#9caf88] border border-white/35 shadow-[0_1px_0_rgba(255,255,255,0.5)_inset] text-white";
+    "bg-accent1 border border-white/35 shadow-[0_1px_0_rgba(255,255,255,0.55)_inset] text-white";
 
   return (
     <div className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
       <Container className="py-3">
         <div className="flex items-center gap-4">
-          {/* Общая пилюля: каталог + поиск */}
-          <div className={dockClass}>
+          <div className={dock}>
             <button
               type="button"
               className="h-12 px-6 flex items-center gap-4 text-white font-semibold hover:opacity-90 transition leading-none"
@@ -152,18 +150,17 @@ export function Stickybar({
               <span className="text-sm">{catalogText}</span>
             </button>
 
-            <div className={searchClass}>
-              <span className="text-[#9caf88] leading-none">
+            <div className={search}>
+              <span className="text-accent1 leading-none">
                 <SearchIcon />
               </span>
               <input
-                className="w-full bg-transparent outline-none text-sm text-[#26292e]/70 placeholder:text-[#26292e]/40"
+                className="w-full bg-transparent outline-none text-sm text-fg placeholder:text-fg/40"
                 placeholder={searchPlaceholder}
               />
             </div>
           </div>
 
-          {/* Иконки справа */}
           <div className="flex items-center gap-3">
             <button className={iconBtn} aria-label="Калькулятор расхода">
               <CalcIcon />
