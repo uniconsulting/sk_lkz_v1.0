@@ -10,12 +10,12 @@ type Slide = {
 };
 
 const DEFAULT_SLIDES: Slide[] = [
-  { src: "/banners/01.jpg", alt: "Баннер 1" },
-  { src: "/banners/02.jpg", alt: "Баннер 2" },
-  { src: "/banners/03.jpg", alt: "Баннер 3" },
-  { src: "/banners/04.jpg", alt: "Баннер 4" },
-  { src: "/banners/05.jpg", alt: "Баннер 5" },
-  { src: "/banners/06.jpg", alt: "Баннер 6" },
+  { src: "/banners/01.png", alt: "Баннер 1" },
+  { src: "/banners/02.png", alt: "Баннер 2" },
+  { src: "/banners/03.png", alt: "Баннер 3" },
+  { src: "/banners/04.png", alt: "Баннер 4" },
+  { src: "/banners/05.png", alt: "Баннер 5" },
+  { src: "/banners/06.png", alt: "Баннер 6" },
 ];
 
 export function HomeBanner({
