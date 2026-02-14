@@ -41,13 +41,18 @@ export function ThemeToggle() {
           return next;
         })
       }
-      className="inline-flex items-center justify-center text-dark/70 hover:text-dark transition
+      className="inline-flex items-center justify-center transition
                  w-8 h-8 p-0 bg-transparent border-0 shadow-none
+                 hover:opacity-90
                  focus:outline-none focus-visible:ring-0"
       aria-label="Сменить тему"
       title={isDark ? "Тёмная тема" : "Светлая тема"}
     >
-      {isDark ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+      {isDark ? (
+        <Moon className="h-5 w-5 text-[#7a72e9]" aria-hidden />
+      ) : (
+        <Sun className="h-5 w-5 text-[#c6cf13]" aria-hidden />
+      )}
     </button>
   );
 }
