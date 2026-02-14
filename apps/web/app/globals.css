@@ -211,5 +211,14 @@ html.dark .header-icon {
   .ui-icon-hover-accent1:hover {
     color: #9caf88; /* accent1 */
   }
+  
+    .ui-press {
+    transition-property: transform;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(0.2, 0.9, 0.2, 1);
+  }
+  .ui-press:active {
+    transform: translateY(1px);
+  }
 }
 
