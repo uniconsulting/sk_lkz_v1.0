@@ -230,7 +230,7 @@ html.dark .header-icon {
 
   /* когда внутри есть фокус */
   .ui-focus-glass:focus-within {
-    transform: translateY(-1px);
+    transform: translateY(-0.5px);
     box-shadow:
       0 0 0 1px rgba(255, 255, 255, 0.75),   /* тонкий “стеклянный” контур */
       0 10px 26px rgba(0, 0, 0, 0.08);      /* мягкая глубина */
@@ -246,7 +246,7 @@ html.dark .header-icon {
     color: #9caf88; /* можно базово так оставить */
   }
   .ui-search-wrap:focus-within .ui-search-icon {
-    color: #c6cf13; /* либо accent2 #c6cf13, если хочешь “искру” */
+    color: #7a72e9; /* либо accent2 #c6cf13, если хочешь “искру” */
   }
 }
 
