@@ -1,13 +1,10 @@
+// apps/web/components/home-banner.tsx
 "use client";
 
 import * as React from "react";
 import Image from "next/image";
 
-type Slide = {
-  src: string;
-  alt: string;
-  href?: string; // на будущее, если баннер кликабельный
-};
+type Slide = { src: string; alt: string; href?: string };
 
 const DEFAULT_SLIDES: Slide[] = [
   { src: "/banners/01.png", alt: "Баннер 1" },
@@ -18,12 +15,21 @@ const DEFAULT_SLIDES: Slide[] = [
   { src: "/banners/06.png", alt: "Баннер 6" },
 ];
 
+// для GitHub Pages (если используете NEXT_PUBLIC_BASE_PATH=/sk_lkz_v1.0)
+function withBasePath(path: string) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}`;
+}
+
 export function HomeBanner({
   slides = DEFAULT_SLIDES,
   intervalMs = 10_000,
+  height = 400,
 }: {
   slides?: Slide[];
   intervalMs?: number;
+  height?: number;
 }) {
   const safeSlides = slides?.length ? slides : DEFAULT_SLIDES;
   const [active, setActive] = React.useState(0);
@@ -36,71 +42,66 @@ export function HomeBanner({
     return () => window.clearInterval(id);
   }, [safeSlides.length, intervalMs]);
 
-  const goTo = (idx: number) => setActive(idx);
-
   return (
-    <div className="w-full">
-      <div
-        className={[
-          "relative mx-auto w-full max-w-[1416px]",
-          "aspect-[1416/400] overflow-hidden",
-          "rounded-3xl glass-border",
-          "bg-white/30 dark:bg-white/10",
-        ].join(" ")}
-      >
-        {safeSlides.map((s, idx) => {
-          const isActive = idx === active;
+    <div
+      className="relative w-full rounded-3xl overflow-hidden glass-border"
+      style={{ height }}
+    >
+      {safeSlides.map((s, idx) => {
+        const isActive = idx === active;
 
-          const layer = (
-            <div
-              className={[
-                "absolute inset-0",
-                "transition-opacity duration-[900ms] ease-out",
-                isActive ? "opacity-100" : "opacity-0 pointer-events-none",
-              ].join(" ")}
-              aria-hidden={!isActive}
-            >
-              <Image
-                src={s.src}
-                alt={s.alt}
-                fill
-                priority={idx === 0}
-                sizes="(max-width: 768px) 100vw, 1416px"
-                className="object-cover"
-              />
-            </div>
-          );
-
-          if (s.href) {
-            return (
-              <a key={s.src} href={s.href} aria-label={s.alt}>
-                {layer}
-              </a>
-            );
-          }
-
-          return <React.Fragment key={s.src}>{layer}</React.Fragment>;
-        })}
-
-        {/* точки навигации (можно убрать, если не нужны) */}
-        {safeSlides.length > 1 ? (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
-            {safeSlides.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Перейти к баннеру ${i + 1}`}
-                className={[
-                  "h-2 w-2 rounded-full",
-                  "transition-all duration-300",
-                  i === active ? "bg-accent2" : "bg-dark/20",
-                ].join(" ")}
-              />
-            ))}
+        const layer = (
+          <div
+            key={s.src}
+            className={[
+              "absolute inset-0",
+              "transition-opacity duration-700 ease-out",
+              isActive ? "opacity-100" : "opacity-0",
+            ].join(" ")}
+            aria-hidden={!isActive}
+          >
+            <Image
+              src={withBasePath(s.src)}
+              alt={s.alt}
+              fill
+              sizes="(min-width: 1024px) 1416px, 100vw"
+              priority={idx === 0}
+              className="object-cover"
+            />
           </div>
-        ) : null}
-      </div>
+        );
+
+        return s.href ? (
+          <a
+            key={s.src}
+            href={s.href}
+            className="absolute inset-0"
+            aria-label={s.alt}
+          >
+            {layer}
+          </a>
+        ) : (
+          layer
+        );
+      })}
+
+      {safeSlides.length > 1 ? (
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          {safeSlides.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActive(i)}
+              aria-label={`Перейти к баннеру ${i + 1}`}
+              className={[
+                "h-2.5 w-2.5 rounded-full",
+                "transition-all duration-300",
+                i === active ? "bg-accent2" : "bg-dark/20",
+              ].join(" ")}
+            />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
