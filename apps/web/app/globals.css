@@ -223,9 +223,9 @@ html.dark .header-icon {
   }
     .ui-focus-glass {
     transition:
-      box-shadow 650ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 800ms cubic-bezier(0.22, 1, 0.36, 1),
       transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 650ms cubic-bezier(0.22, 1, 0.36, 1);
+      background-color 800ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   /* когда внутри есть фокус */
