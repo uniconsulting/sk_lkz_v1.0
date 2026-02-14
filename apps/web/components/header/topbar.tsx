@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Container } from "@sk/ui";
-import { ThemeToggle } from "./theme-toggle";
+import { MapPin } from "lucide-react";
 
 export type TopNavItem = { label: string; href: string };
 
@@ -11,24 +11,17 @@ export type TopbarProps = {
   regionLabel: string;
   phoneLabel: string;
   phoneHref: string;
+  themeSlot?: React.ReactNode; // чтобы можно было вставить ThemeToggle справа от телефона
 };
 
-function PinIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" className="block">
-      <path
-        d="M12 22s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  );
-}
-
-export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: TopbarProps) {
+export function Topbar({
+  logoSlot,
+  nav,
+  regionLabel,
+  phoneLabel,
+  phoneHref,
+  themeSlot,
+}: TopbarProps) {
   return (
     <div className="w-full bg-bg border-b border-dark/10">
       <Container className="py-5">
@@ -57,21 +50,21 @@ export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: To
               className="hidden sm:inline-flex items-center gap-2 text-dark hover:opacity-90 transition"
               aria-label="Выбор региона"
             >
-              <span className="text-accent1">
-                <PinIcon />
+              <span className="text-accent1 inline-flex items-center justify-center">
+                <MapPin size={18} strokeWidth={2} />
               </span>
               <span className="whitespace-nowrap">{regionLabel}</span>
             </button>
 
-<div className="flex items-center gap-3 whitespace-nowrap">
-  <a
-    href={phoneHref}
-    className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
-  >
-    {phoneLabel}
-  </a>
+            <div className="flex items-center gap-3 whitespace-nowrap">
+              <a
+                href={phoneHref}
+                className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
+              >
+                {phoneLabel}
+              </a>
 
-              <ThemeToggle />
+              {themeSlot}
             </div>
           </div>
         </div>
