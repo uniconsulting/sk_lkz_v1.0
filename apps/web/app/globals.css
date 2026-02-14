@@ -199,5 +199,17 @@ html.dark .header-icon {
   .ui-hover-accent1:hover {
     color: #9caf88;
   }  
+  
+  /* Универсальный hover для иконок: плавная смена цвета */
+  .ui-icon-hover-accent1 {
+    color: #26292e; /* базовый */
+    transition-property: color;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .ui-icon-hover-accent1:hover {
+    color: #9caf88; /* accent1 */
+  }
 }
 
