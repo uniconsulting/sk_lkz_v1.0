@@ -177,3 +177,17 @@ html.dark .header-icon {
   background: rgb(var(--color-dark) / 0.18);
   border-color: rgb(255 255 255 / 0.14);
 }
+
+@layer components {
+  /* Универсальный hover для текста: плавная смена цвета */
+  .ui-hover-accent {
+    transition-property: color;
+    transition-duration: 700ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); /* мягко и премиально */
+  }
+
+  .ui-hover-accent:hover {
+    color: #c6cf13;
+  }
+}
+
