@@ -1,4 +1,4 @@
-import React from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Container } from "@sk/ui";
 import { MapPin } from "lucide-react";
@@ -6,12 +6,12 @@ import { MapPin } from "lucide-react";
 export type TopNavItem = { label: string; href: string };
 
 export type TopbarProps = {
-  logoSlot?: React.ReactNode;
+  logoSlot?: ReactNode;
   nav: TopNavItem[];
   regionLabel: string;
   phoneLabel: string;
   phoneHref: string;
-  themeSlot?: React.ReactNode; // чтобы можно было вставить ThemeToggle справа от телефона
+  themeSlot?: ReactNode; // вставка ThemeToggle справа от телефона
 };
 
 export function Topbar({
@@ -32,12 +32,18 @@ export function Topbar({
             <ul className="flex items-center">
               {nav.map((item, idx) => (
                 <li key={item.href} className="flex items-center">
-                  <Link href={item.href} className="hover:text-dark/60 transition-colors">
+                  <Link
+                    href={item.href}
+                    className="hover:text-dark/60 transition-colors"
+                  >
                     {item.label}
                   </Link>
 
                   {idx !== nav.length - 1 && (
-                    <span aria-hidden className="mx-6 inline-block h-4 w-px bg-dark/10" />
+                    <span
+                      aria-hidden
+                      className="mx-6 inline-block h-4 w-px bg-dark/10"
+                    />
                   )}
                 </li>
               ))}
@@ -50,22 +56,22 @@ export function Topbar({
               className="hidden sm:inline-flex items-center gap-2 text-dark hover:opacity-90 transition"
               aria-label="Выбор региона"
             >
-              <span className="text-accent1 inline-flex items-center justify-center">
-                <MapPin size={18} strokeWidth={2} />
+              <span className="text-accent1">
+                <MapPin className="h-5 w-5" aria-hidden />
               </span>
               <span className="whitespace-nowrap">{regionLabel}</span>
             </button>
 
-            <div className="flex items-center gap-3 whitespace-nowrap">
-              <a
-                href={phoneHref}
-                className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
-              >
-                {phoneLabel}
-              </a>
+            <a
+              href={phoneHref}
+              className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
+            >
+              {phoneLabel}
+            </a>
 
-              {themeSlot}
-            </div>
+            {themeSlot ? (
+              <div className="flex items-center">{themeSlot}</div>
+            ) : null}
           </div>
         </div>
       </Container>
