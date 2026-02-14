@@ -124,11 +124,11 @@ export function Stickybar({
 
   const search =
     "h-12 flex-1 rounded-[20px] px-4 flex items-center gap-3 bg-white/90 " +
-    "bg-accent1 rounded-[20px] glass-border";
+    "bg-white/25 rounded-[20px] glass-border";
 
   const iconBtn =
     "h-16 w-16 rounded-[24px] inline-flex items-center justify-center leading-none " +
-    "bg-accent1 rounded-[24px] glass-border text-fg/70";
+    "bg-white/25 rounded-[24px] glass-border text-fg/70";
 
   const iconBtnAccent =
     "h-16 w-16 rounded-[24px] inline-flex items-center justify-center leading-none " +
