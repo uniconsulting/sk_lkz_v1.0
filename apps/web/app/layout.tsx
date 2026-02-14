@@ -1,15 +1,18 @@
-import type { Metadata } from 'next';
 import './globals.css';
+import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Симбирские краски',
-  description: 'Интернет-магазин',
+  title: 'СИМБИРСКИЕ КРАСКИ',
+  description: 'Интернет-магазин лакокрасочной продукции',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ru">
-      <body>{children}</body>
+    <html lang="ru" suppressHydrationWarning>
+      <body className="min-h-screen bg-bg text-fg font-sans antialiased">
+        {children}
+      </body>
     </html>
   );
 }
