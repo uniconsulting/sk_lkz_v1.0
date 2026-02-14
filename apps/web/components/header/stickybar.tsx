@@ -66,7 +66,7 @@ function UserIcon() {
 }
 
 export function Stickybar({
-  catalogLabel = 'каталог продукции',
+  catalogLabel = 'Каталог продукции',
   searchPlaceholder = 'умный поиск и не только...',
 }: StickybarProps) {
   return (
@@ -78,10 +78,12 @@ export function Stickybar({
             {/* Каталог без отдельного фона */}
             <button
               type="button"
-              className="h-12 px-5 flex items-center gap-4 text-white font-semibold uppercase tracking-wide hover:opacity-90 transition"
+              className="h-12 px-5 flex items-center gap-4 text-white font-semibold tracking-wide hover:opacity-90 transition"
               aria-label="Каталог продукции"
             >
-              <BurgerIcon />
+              <span className="h-10 w-10 flex items-center justify-center">
+                <BurgerIcon />
+              </span>
               <span className="text-sm">{catalogLabel}</span>
             </button>
 
