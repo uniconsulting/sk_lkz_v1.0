@@ -42,38 +42,40 @@ export function Topbar({
   phoneHref,
 }: TopbarProps) {
   return (
-    <div className="w-full bg-bg border-b border-[#26292e]/20">
+    <div className="w-full bg-bg border-b border-dark/10">
       <Container className="py-5">
         <div className="flex items-center justify-between gap-6">
           <div className="flex items-center">{logoSlot}</div>
 
-          <nav className="hidden lg:flex items-center text-sm text-[#26292e]/40">
-            {nav.map((item, idx) => (
-              <React.Fragment key={item.href}>
-                <Link
-                  href={item.href}
-                  className="hover:text-[#26292e]/60 transition-colors"
-                >
-                  {item.label}
-                </Link>
+          <nav className="hidden lg:flex items-center text-sm text-dark/40">
+            <ul className="flex items-center">
+              {nav.map((item, idx) => (
+                <li key={item.href} className="flex items-center">
+                  <Link
+                    href={item.href}
+                    className="hover:text-dark/60 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
 
-                {idx !== nav.length - 1 && (
-                  <span
-                    aria-hidden
-                    className="mx-6 inline-block h-4 w-px bg-[#26292e]/20"
-                  />
-                )}
-              </React.Fragment>
-            ))}
+                  {idx !== nav.length - 1 && (
+                    <span
+                      aria-hidden
+                      className="mx-6 inline-block h-4 w-px bg-dark/10"
+                    />
+                  )}
+                </li>
+              ))}
+            </ul>
           </nav>
 
           <div className="flex items-center gap-6 text-sm">
             <button
               type="button"
-              className="hidden sm:inline-flex items-center gap-2 text-[#26292e] hover:opacity-90 transition"
+              className="hidden sm:inline-flex items-center gap-2 text-dark hover:opacity-90 transition"
               aria-label="Выбор региона"
             >
-              <span className="text-[#9caf88]">
+              <span className="text-accent1">
                 <PinIcon />
               </span>
               <span className="whitespace-nowrap">{regionLabel}</span>
@@ -81,7 +83,7 @@ export function Topbar({
 
             <a
               href={phoneHref}
-              className="text-[#26292e] font-semibold whitespace-nowrap hover:opacity-90 transition"
+              className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition"
             >
               {phoneLabel}
             </a>
