@@ -42,7 +42,7 @@ export function Topbar({
   phoneHref,
 }: TopbarProps) {
   return (
-    <div className="w-full bg-bg border-b border-dark/6">
+    <div className="w-full bg-bg border-b border-dark/10">
       <Container className="py-5">
         <div className="flex items-center justify-between gap-6">
           <div className="flex items-center">{logoSlot}</div>
@@ -61,7 +61,7 @@ export function Topbar({
                   {idx !== nav.length - 1 && (
                     <span
                       aria-hidden
-                      className="mx-6 inline-block h-4 w-px bg-dark/6"
+                      className="mx-6 inline-block h-4 w-px bg-dark/10"
                     />
                   )}
                 </li>
