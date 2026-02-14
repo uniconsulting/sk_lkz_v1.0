@@ -74,7 +74,7 @@ export function Stickybar({
       <Container className="py-3">
         <div className="flex items-center gap-4">
           {/* Общая пилюля: каталог + поиск */}
-          <div className="header-dock glass-border h-16 rounded-3xl p-2 flex items-center gap-4 flex-1">
+          <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1">
             {/* Каталог без отдельного фона, убран лишний padding слева */}
             <button
               type="button"
@@ -120,7 +120,7 @@ export function Stickybar({
               <CartIcon />
             </button>
             <button
-              className="header-icon header-icon--accent glass-border h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white"
+              className="header-icon header-icon--accent glass-border bg-accent1 h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white"
               aria-label="Вход в ЛК"
             >
               <UserIcon />
