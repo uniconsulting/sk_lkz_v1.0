@@ -1,82 +1,68 @@
 import React from "react";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { Container } from "@sk/ui";
 
 export type TopNavItem = { label: string; href: string };
 
-type TopbarProps = {
-  nav?: TopNavItem[];
-  cityLabel?: string;
-  phoneLabel?: string;
-  phoneHref?: string;
+export type TopbarProps = {
   logoSlot?: React.ReactNode;
+  nav: TopNavItem[];
+  regionLabel: string;
+  phoneLabel: string;
+  phoneHref: string;
 };
 
-const DEFAULT_NAV: TopNavItem[] = [
-  { label: "как заказать", href: "#how-to-order" },
-  { label: "купить оптом", href: "#b2b" },
-  { label: "дилерам", href: "#dealers" },
-  { label: "блог и новости", href: "#blog" },
-];
-
-function normalizeTelHref(value: string) {
-  const digits = value.replace(/[^\d+]/g, "");
-  return digits.startsWith("+") ? `tel:${digits}` : `tel:+${digits}`;
+function PinIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" className="block">
+      <path
+        d="M12 22s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="10" r="2.5" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
 }
 
-export function Topbar({
-  nav = DEFAULT_NAV,
-  cityLabel = "Ульяновск",
-  phoneLabel = "+7 (964) 858-99-10",
-  phoneHref,
-  logoSlot,
-}: TopbarProps) {
-  const telHref = phoneHref ?? normalizeTelHref(phoneLabel);
-
+export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: TopbarProps) {
   return (
-    <div className="w-full bg-white">
-      <div className="mx-auto max-w-[1440px] px-8">
-        <div className="flex h-20 items-center justify-between">
+    <div className="w-full bg-bg border-b border-dark/20">
+      <Container className="py-4">
+        <div className="flex items-center justify-between gap-6">
           <div className="flex items-center">{logoSlot}</div>
 
-          <nav className="hidden lg:flex items-center text-[16px]">
+          <nav className="hidden lg:flex items-center text-sm text-dark/40">
             {nav.map((item, idx) => (
-              <div key={item.href} className="flex items-center">
-                <Link
-                  href={item.href}
-                  className="text-dark/40 hover:text-dark/60 transition-colors"
-                >
+              <React.Fragment key={item.href}>
+                <Link href={item.href} className="hover:text-dark/60 transition-colors">
                   {item.label}
                 </Link>
-
-                {idx !== nav.length - 1 && (
-                  <span className="mx-5 h-4 w-px bg-dark/20" />
-                )}
-              </div>
+                {idx !== nav.length - 1 && <span className="mx-5 text-dark/20">|</span>}
+              </React.Fragment>
             ))}
           </nav>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 text-sm">
             <button
               type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-dark/20 px-4 py-2 text-dark text-[16px] leading-none"
-              aria-label="Выбор города"
+              className="hidden sm:inline-flex items-center gap-2 text-dark hover:opacity-90 transition"
+              aria-label="Выбор региона"
             >
-              <MapPin className="h-5 w-5 text-accent1" />
-              <span>{cityLabel}</span>
+              <span className="text-accent1">
+                <PinIcon />
+              </span>
+              <span className="whitespace-nowrap">{regionLabel}</span>
             </button>
 
-            <a
-              href={telHref}
-              className="text-dark font-semibold text-[18px] leading-none"
-            >
+            <a href={phoneHref} className="text-dark font-semibold whitespace-nowrap hover:opacity-90 transition">
               {phoneLabel}
             </a>
           </div>
         </div>
-      </div>
-
-      <div className="h-px w-full bg-dark/20" />
+      </Container>
     </div>
   );
 }
