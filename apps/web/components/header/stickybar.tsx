@@ -23,7 +23,7 @@ export function Stickybar({
       <Container className="pt-5 pb-3">
         <div className="flex items-center gap-4">
           {/* Общая пилюля: каталог + поиск */}
-          <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[980px]">
+          <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[960px]">
             {/* Каталог: уменьшаем расстояние иконка-текст */}
             <button
               type="button"
