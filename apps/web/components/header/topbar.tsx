@@ -29,7 +29,7 @@ function PinIcon() {
 
 export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: TopbarProps) {
   return (
-    <div className="w-full bg-bg border-b border-dark/20">
+    <div className="w-full bg-bg border-b border-dark/10">
       <Container className="py-4">
         <div className="flex items-center justify-between gap-6">
           {/* Left */}
@@ -48,7 +48,7 @@ export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: To
                 <Link href={item.href} className="hover:text-fg transition">
                   {item.label}
                 </Link>
-                {i !== nav.length - 1 && <span className="mx-4 text-dark/20">|</span>}
+                {i !== nav.length - 1 && <span className="mx-4 text-dark/10">|</span>}
               </React.Fragment>
             ))}
           </nav>
