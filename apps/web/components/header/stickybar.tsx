@@ -1,34 +1,124 @@
-import { Button, Container, IconButton, Input } from '@sk/ui';
+import { Container } from '@sk/ui';
 
 export type StickybarProps = {
   catalogLabel?: string;
   searchPlaceholder?: string;
 };
 
+function BurgerIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+      <path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" className="text-accent1">
+      <path
+        d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path d="M21 21l-4.3-4.3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CalcIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+      <path
+        d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path d="M8 8h8M8 12h3M13 12h3M8 16h3M13 16h3" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+      <path
+        d="M12 21s-7-4.6-9.5-8.7C.5 8.7 2.7 6 5.7 6c1.8 0 3.3 1 4.3 2.2C11 7 12.5 6 14.3 6c3 0 5.2 2.7 3.2 6.3C19 16.4 12 21 12 21z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CartIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+      <path d="M6 6h15l-2 9H7L6 6z" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M6 6L5 3H2" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="9" cy="20" r="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+      <circle cx="18" cy="20" r="1.5" fill="none" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" className="text-fg/80">
+      <path
+        d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function Stickybar({
   catalogLabel = 'каталог продукции',
   searchPlaceholder = 'умный поиск и не только...',
 }: StickybarProps) {
   return (
-    <div className="sticky top-0 z-50 bg-bg/80 backdrop-blur-md border-b border-fg/10">
-      <Container className="h-20 flex items-center gap-4">
-        <Button
-          className="h-12 rounded-l px-5 bg-accent1/60 text-fg hover:bg-accent1/70"
-          aria-label="Каталог"
-        >
-          <span className="mr-3 text-lg leading-none">≡</span>
-          <span className="text-sm font-semibold uppercase tracking-wide">{catalogLabel}</span>
-        </Button>
+    <div className="sticky top-0 z-50 bg-bg/70 backdrop-blur-md">
+      <Container className="py-4">
+        <div className="header-dock h-16 px-4 flex items-center gap-4">
+          <button
+            type="button"
+            className="header-catalog h-12 px-5 rounded-xl flex items-center gap-4"
+            aria-label="Каталог продукции"
+          >
+            <BurgerIcon />
+            <span className="text-sm font-semibold uppercase tracking-wide">{catalogLabel}</span>
+          </button>
 
-        <div className="flex-1">
-          <Input className="h-12 w-full rounded-l" placeholder={searchPlaceholder} />
-        </div>
+          <div className="header-search h-12 flex-1 px-4 flex items-center gap-3">
+            <SearchIcon />
+            <input
+              className="w-full bg-transparent outline-none text-sm placeholder:text-fg/45"
+              placeholder={searchPlaceholder}
+            />
+          </div>
 
-        <div className="flex items-center gap-3">
-          <IconButton aria-label="Калькулятор расхода">⌁</IconButton>
-          <IconButton aria-label="Избранные">♡</IconButton>
-          <IconButton aria-label="Корзина">🛒</IconButton>
-          <IconButton aria-label="Личный кабинет">👤</IconButton>
+          <div className="flex items-center gap-3">
+            <button className="header-icon h-12 w-12" aria-label="Калькулятор расхода">
+              <CalcIcon />
+            </button>
+            <button className="header-icon h-12 w-12" aria-label="Избранное">
+              <HeartIcon />
+            </button>
+            <button className="header-icon h-12 w-12" aria-label="Корзина">
+              <CartIcon />
+            </button>
+            <button className="header-icon header-icon--accent h-12 w-12" aria-label="Личный кабинет">
+              <UserIcon />
+            </button>
+          </div>
         </div>
       </Container>
     </div>
