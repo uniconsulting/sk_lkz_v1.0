@@ -71,7 +71,7 @@ export function Stickybar({
             </button>
 
             <button
-              className="header-icon glass-border bg-accent1 h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white"
+              className="header-icon glass-border bg-accent1 h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white ui-press"
               aria-label="Вход в ЛК"
             >
               <User className="h-6 w-6" aria-hidden />
