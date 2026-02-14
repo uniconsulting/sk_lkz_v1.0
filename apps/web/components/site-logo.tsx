@@ -1,15 +1,34 @@
-import * as React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-export function SiteLogo() {
+type SiteLogoProps = {
+  className?: string;
+};
+
+export function SiteLogo({ className }: SiteLogoProps) {
   return (
-    <Link href="/" className="flex items-center gap-3">
-      <div className="h-10 w-10 rounded-full bg-primary/15 text-primary flex items-center justify-center font-bold">
-        СК
-      </div>
-      <div className="leading-tight">
-        <div className="text-xs text-primary/80 tracking-wide">СИМБИРСКИЕ</div>
-        <div className="text-lg font-semibold">КРАСКИ</div>
+    <Link
+      href="/"
+      className={`flex items-center gap-3 ${className ?? ""}`}
+      aria-label="Симбирские краски"
+    >
+      <Image
+        src="/logo1.png"
+        alt="Симбирские краски"
+        width={56}
+        height={56}
+        priority
+        className="h-14 w-14 rounded-full"
+      />
+
+      <div className="leading-none">
+        <div className="text-[12px] tracking-[0.18em] text-primary font-medium">
+          СИМБИРСКИЕ
+        </div>
+        <div className="text-[22px] tracking-[0.02em] text-dark font-semibold">
+          КРАСКИ
+        </div>
       </div>
     </Link>
   );
