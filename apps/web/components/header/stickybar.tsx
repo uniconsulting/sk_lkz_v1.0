@@ -120,19 +120,19 @@ export function Stickybar({
 
   const dock =
     "h-16 flex-1 rounded-[24px] bg-accent1 p-2 pr-2 flex items-center gap-4 " +
-    "border border-white/35 shadow-[0_1px_0_rgba(255,255,255,0.65)_inset]";
+    "bg-accent1 rounded-[24px] glass-border";
 
   const search =
     "h-12 flex-1 rounded-[20px] px-4 flex items-center gap-3 bg-white/90 " +
-    "border border-white/55 shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]";
+    "bg-accent1 rounded-[20px] glass-border";
 
   const iconBtn =
     "h-16 w-16 rounded-[24px] inline-flex items-center justify-center leading-none " +
-    "bg-white/25 border border-white/45 shadow-[0_1px_0_rgba(255,255,255,0.6)_inset] text-fg/70";
+    "bg-accent1 rounded-[24px] glass-border text-fg/70";
 
   const iconBtnAccent =
     "h-16 w-16 rounded-[24px] inline-flex items-center justify-center leading-none " +
-    "bg-accent1 border border-white/35 shadow-[0_1px_0_rgba(255,255,255,0.55)_inset] text-white";
+    "bg-accent1 rounded-[24px] glass-border text-white";
 
   return (
     <div className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
