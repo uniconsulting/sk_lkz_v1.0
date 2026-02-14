@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Container } from '@sk/ui';
 import React from 'react';
+import Image from "next/image";
+import Link from "next/link";
 
 export type TopNavItem = { label: string; href: string };
 
@@ -33,13 +35,17 @@ export function Topbar({ logoSlot, nav, regionLabel, phoneLabel, phoneHref }: To
       <Container className="py-4">
         <div className="flex items-center justify-between gap-6">
           {/* Left */}
-          <div className="flex items-center gap-3">
-            {logoSlot ?? (
-              <Link href="/" className="text-fg font-semibold">
-                СИМБИРСКИЕ КРАСКИ
-              </Link>
-            )}
-          </div>
+          <Link href="/" className="flex items-center gap-12">
+          <Image
+             src="/logo1.png"
+             alt="Симбирские краски"
+             width={220}
+             height={48}
+             priority
+             unoptimized
+             className="h-32 w-auto select-none"
+            />
+          </Link>
 
           {/* Center nav */}
           <nav className="hidden md:flex items-center text-sm text-dark/40">
