@@ -123,7 +123,7 @@ export function Stickybar({
     "bg-accent1 rounded-[24px] glass-border";
 
   const search =
-    "h-12 flex-1 rounded-[20px] px-4 flex items-center gap-3 bg-white/90 " +
+    "h-12 flex-1 rounded-[20px] px-4 flex items-center gap-3 bg-white" +
     "bg-white/25 rounded-[20px] glass-border";
 
   const iconBtn =
