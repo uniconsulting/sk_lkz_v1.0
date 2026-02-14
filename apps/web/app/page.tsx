@@ -1,48 +1,36 @@
 'use client';
 
-import { Badge, BentoGrid, BentoTile, Card, Container, IconButton, Input, Switch } from '@sk/ui';
-import { useTheme } from './_providers/theme-provider';
+import { Header } from '@sk/ui';
+import { Container, Card } from '@sk/ui';
+import { SiteLogo } from '../components/site-logo';
 
 export default function HomePage() {
-  const { theme, setTheme } = useTheme();
-
   return (
-    <Container className="py-8">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2">
-          <Badge variant="primary">Primary</Badge>
-          <Badge variant="accent1">Accent1</Badge>
-          <Badge variant="accent2">Accent2</Badge>
-        </div>
+    <div>
+      <Header
+        logoSlot={<SiteLogo />}
+        nav={[
+          { label: 'как заказать', href: '#how' },
+          { label: 'купить оптом', href: '#b2b' },
+          { label: 'дилерам', href: '#dealers' },
+          { label: 'блог и новости', href: '#blog' },
+        ]}
+        regionLabel="Ульяновск"
+        phoneLabel="+7 (964) 858-99-10"
+        phoneHref="tel:+79648589910"
+      />
 
-        <Switch
-          checked={theme === 'dark'}
-          onCheckedChange={(v) => setTheme(v ? 'dark' : 'light')}
-          label="Тёмная тема"
-        />
-      </div>
-
-      <div className="mt-6 flex items-center gap-3">
-        <Input placeholder="Умный поиск и не только..." className="w-full" />
-        <IconButton aria-label="Калькулятор">⌁</IconButton>
-        <IconButton aria-label="Избранное">♡</IconButton>
-      </div>
-
-      <BentoGrid className="mt-6">
-        <BentoTile col="md:col-span-7">
-          <Card className="p-6">
-            <div className="text-lg font-semibold">Glass Card</div>
-            <div className="mt-2 text-fg/70 text-sm">Проверка токенов, стекла, радиусов и отступов 4px.</div>
+      <main className="py-6">
+        <Container>
+          <Card className="p-0 overflow-hidden">
+            <div className="w-full" style={{ height: 400 }}>
+              <div className="h-full w-full flex items-center justify-center text-fg/60">
+                Баннер 1416×400 (карусель из админки) - заглушка
+              </div>
+            </div>
           </Card>
-        </BentoTile>
-
-        <BentoTile col="md:col-span-5">
-          <Card tone="strong" className="p-6">
-            <div className="text-lg font-semibold">Strong tone</div>
-            <div className="mt-2 text-fg/70 text-sm">Более плотное стекло, тот же бордер и радиус.</div>
-          </Card>
-        </BentoTile>
-      </BentoGrid>
-    </Container>
+        </Container>
+      </main>
+    </div>
   );
 }
