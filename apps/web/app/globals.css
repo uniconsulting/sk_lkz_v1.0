@@ -92,39 +92,35 @@ body {
     --glass-inset: rgba(255, 255, 255, 0.16);
   }
 
-  /*
-    Универсальный “одиночный” стеклянный бордюр.
-    Не трогает background элемента, поэтому можно клеить поверх bg-accent1, bg-white и т.п.
-  */
-  .glass-border {
-    position: relative;
-    box-shadow: inset 0 1px 0 var(--glass-inset);
-  }
+/* Универсальный стекло-бордюр: НЕ трогает background элемента */
+.glass-border {
+  position: relative;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+}
 
-  .glass-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
+.glass-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* толщина бордюра */
 
-    /* фактическая толщина обводки */
-    padding: var(--glass-stroke);
+  /* один динамичный контур (бело-серый) */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.65),
+    rgba(255, 255, 255, 0.18)
+  );
 
-    /* динамика как на рефе: ярче сверху/слева, темнее снизу/справа */
-    background: linear-gradient(
-      135deg,
-      var(--glass-border-hi),
-      var(--glass-border-mid) 42%,
-      var(--glass-border-lo)
-    );
+  /* делаем “дырку” внутри, чтобы остался только бордюр */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
 
-    /* вырезаем “середину”, оставляем только кольцо-ободок */
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-
-    pointer-events: none;
-  }
+  pointer-events: none;
+}
 
   /*
     Фоллбек на случай, если маски не поддерживаются.
