@@ -250,45 +250,27 @@ html.dark .header-icon {
   }
 }
 
-@layer utilities {
-  .banner-notch {
-    /* радиус выемки */
-    --notch-r: 28px;
-    /* лёгкое сглаживание края */
-    --notch-feather: 1px;
+/* Баннер: выемки как ВЫРЕЗЫ в маске (как на референс-маске) */
+.banner-notch {
+  --notch: 28px; /* радиус выемки. под кнопку 56px = 28px */
 
-    -webkit-mask-image:
-      linear-gradient(#000 0 0),
-      radial-gradient(
-        circle var(--notch-r) at 0% 50%,
-        transparent calc(100% - var(--notch-feather)),
-        #000 100%
-      ),
-      radial-gradient(
-        circle var(--notch-r) at 100% 50%,
-        transparent calc(100% - var(--notch-feather)),
-        #000 100%
-      );
-    -webkit-mask-composite: source-in, source-in;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: 100% 100%, 100% 100%, 100% 100%;
+  /* База: полностью непрозрачная маска */
+  -webkit-mask-image:
+    linear-gradient(#000 0 0),
+    radial-gradient(circle var(--notch) at 0 50%, #000 98%, transparent 100%),
+    radial-gradient(circle var(--notch) at 100% 50%, #000 98%, transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: source-over, destination-out, destination-out;
 
-    mask-image:
-      linear-gradient(#000 0 0),
-      radial-gradient(
-        circle var(--notch-r) at 0% 50%,
-        transparent calc(100% - var(--notch-feather)),
-        #000 100%
-      ),
-      radial-gradient(
-        circle var(--notch-r) at 100% 50%,
-        transparent calc(100% - var(--notch-feather)),
-        #000 100%
-      );
-    mask-composite: intersect;
-    mask-repeat: no-repeat;
-    mask-size: 100% 100%, 100% 100%, 100% 100%;
-  }
+  mask-image:
+    linear-gradient(#000 0 0),
+    radial-gradient(circle var(--notch) at 0 50%, #000 98%, transparent 100%),
+    radial-gradient(circle var(--notch) at 100% 50%, #000 98%, transparent 100%);
+  mask-repeat: no-repeat;
+  mask-composite: add, subtract, subtract;
 }
 
-
+/* На мобилках выемки чуть меньше, чтобы выглядело плотнее */
+@media (max-width: 640px) {
+  .banner-notch { --notch: 22px; }
+}
