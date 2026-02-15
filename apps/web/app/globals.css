@@ -250,3 +250,45 @@ html.dark .header-icon {
   }
 }
 
+@layer utilities {
+  .banner-notch {
+    /* радиус выемки */
+    --notch-r: 28px;
+    /* лёгкое сглаживание края */
+    --notch-feather: 1px;
+
+    -webkit-mask-image:
+      linear-gradient(#000 0 0),
+      radial-gradient(
+        circle var(--notch-r) at 0% 50%,
+        transparent calc(100% - var(--notch-feather)),
+        #000 100%
+      ),
+      radial-gradient(
+        circle var(--notch-r) at 100% 50%,
+        transparent calc(100% - var(--notch-feather)),
+        #000 100%
+      );
+    -webkit-mask-composite: source-in, source-in;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%, 100% 100%, 100% 100%;
+
+    mask-image:
+      linear-gradient(#000 0 0),
+      radial-gradient(
+        circle var(--notch-r) at 0% 50%,
+        transparent calc(100% - var(--notch-feather)),
+        #000 100%
+      ),
+      radial-gradient(
+        circle var(--notch-r) at 100% 50%,
+        transparent calc(100% - var(--notch-feather)),
+        #000 100%
+      );
+    mask-composite: intersect;
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%, 100% 100%, 100% 100%;
+  }
+}
+
+
