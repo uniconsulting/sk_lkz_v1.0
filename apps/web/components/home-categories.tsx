@@ -55,7 +55,7 @@ export function HomeCategories({ items = DEFAULT_ITEMS }: HomeCategoriesProps) {
                 {/* Было p-10 -> делаем ниже, чтобы карточка стала компактнее */}
                 <div className="h-full p-8 flex flex-col">
                   <div
-                    className="h-12 w-12 rounded-2xl bg-accent1 text-white
+                    className="h-12 w-12 rounded-xl glass-border bg-accent1 text-white
                                inline-flex items-center justify-center"
                   >
                     {item.icon}
