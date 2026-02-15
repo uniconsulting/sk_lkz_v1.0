@@ -47,8 +47,8 @@ export function HomeBanner({
 
   return (
     <div className="relative">
-      {/* Баннер: форма задаётся маской banner-notch */}
-      <div className="glass-border banner-notch relative h-[360px] overflow-hidden">
+      {/* Рамка баннера с выемками */}
+      <div className="glass-border banner-notch rounded-3xl overflow-hidden relative h-[360px]">
         {slides.map((s, idx) => (
           <Image
             key={s.src}
@@ -65,13 +65,13 @@ export function HomeBanner({
         ))}
       </div>
 
-      {/* Стрелки: в зоне выемок, кнопки отдельно (не маска) */}
+      {/* Стрелки: в выемках, но вне маски */}
       <button
         type="button"
         onClick={prev}
         aria-label="Предыдущий баннер"
         className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
-                   z-10 h-12 w-12 rounded-full bg-bg
+                   h-14 w-14 rounded-full bg-bg
                    inline-flex items-center justify-center
                    text-fg/70 hover:text-fg transition
                    shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
@@ -84,7 +84,7 @@ export function HomeBanner({
         onClick={next}
         aria-label="Следующий баннер"
         className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
-                   z-10 h-12 w-12 rounded-full bg-bg
+                   h-14 w-14 rounded-full bg-bg
                    inline-flex items-center justify-center
                    text-fg/70 hover:text-fg transition
                    shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
