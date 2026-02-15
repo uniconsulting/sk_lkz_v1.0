@@ -45,10 +45,16 @@ export function HomeBanner({
     return () => window.clearInterval(id);
   }, [next, intervalMs, total]);
 
+  // Радиус выемки. Важно: диаметр кнопки стрелки = 2 * --notch-r
+  const notchR = 28; // px (если хочешь меньше выемки, ставь 24-26)
+
   return (
     <div className="relative">
-      {/* Рамка баннера с выемками */}
-      <div className="glass-border banner-notch rounded-3xl overflow-hidden relative h-[360px]">
+      {/* Баннер: маска выемок + glass-border на одном элементе */}
+      <div
+        className="glass-border banner-notch rounded-3xl overflow-hidden relative h-[360px]"
+        style={{ ["--notch-r" as unknown as string]: `${notchR}px` }}
+      >
         {slides.map((s, idx) => (
           <Image
             key={s.src}
@@ -65,16 +71,16 @@ export function HomeBanner({
         ))}
       </div>
 
-      {/* Стрелки: в выемках, но вне маски */}
+      {/* Стрелки: центр в точке (0%, 50%) и (100%, 50%), без лишних обводок/теней */}
       <button
         type="button"
         onClick={prev}
         aria-label="Предыдущий баннер"
-        className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
-                   h-14 w-14 rounded-full bg-bg
+        className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10
                    inline-flex items-center justify-center
-                   text-fg/70 hover:text-fg transition
-                   shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+                   bg-bg text-fg/60 hover:text-fg transition-colors duration-500
+                   focus:outline-none focus-visible:ring-0"
+        style={{ width: notchR * 2, height: notchR * 2, borderRadius: 9999 }}
       >
         <ChevronLeft className="h-6 w-6" />
       </button>
@@ -83,30 +89,37 @@ export function HomeBanner({
         type="button"
         onClick={next}
         aria-label="Следующий баннер"
-        className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
-                   h-14 w-14 rounded-full bg-bg
+        className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 z-10
                    inline-flex items-center justify-center
-                   text-fg/70 hover:text-fg transition
-                   shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+                   bg-bg text-fg/60 hover:text-fg transition-colors duration-500
+                   focus:outline-none focus-visible:ring-0"
+        style={{ width: notchR * 2, height: notchR * 2, borderRadius: 9999 }}
       >
         <ChevronRight className="h-6 w-6" />
       </button>
 
       {/* Точки: под баннером */}
-      <div className="mt-3 flex items-center justify-center gap-2">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setActive(idx)}
-            aria-label={`Слайд ${idx + 1}`}
-            className={
-              "h-2 w-2 rounded-full transition " +
-              (idx === active ? "bg-accent1" : "bg-dark/15")
-            }
-          />
-        ))}
-      </div>
+      {total > 1 ? (
+        <div className="mt-3 flex items-center justify-center gap-2">
+          {slides.map((_, idx) => {
+            const isActive = idx === active;
+            return (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setActive(idx)}
+                aria-label={`Слайд ${idx + 1}`}
+                aria-current={isActive ? "true" : "false"}
+                className={
+                  "rounded-full transition-colors duration-500 " +
+                  (isActive ? "bg-accent1" : "bg-dark/15 hover:bg-dark/25")
+                }
+                style={{ width: 8, height: 8 }}
+              />
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 }
