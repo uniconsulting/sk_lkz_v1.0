@@ -1,107 +1,156 @@
-// apps/web/components/home-banner.tsx
 "use client";
 
-import * as React from "react";
+import React from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-type Slide = { src: string; alt: string; href?: string };
+export type Slide = {
+  src: string; // например "/banners/01.png"
+  alt?: string;
+  href?: string;
+};
 
-const DEFAULT_SLIDES: Slide[] = [
-  { src: "/banners/01.png", alt: "Баннер 1" },
-  { src: "/banners/02.png", alt: "Баннер 2" },
-  { src: "/banners/03.png", alt: "Баннер 3" },
-  { src: "/banners/04.png", alt: "Баннер 4" },
-  { src: "/banners/05.png", alt: "Баннер 5" },
-  { src: "/banners/06.png", alt: "Баннер 6" },
-];
+const DEFAULT_SLIDES: Slide[] = Array.from({ length: 6 }).map((_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return { src: `/banners/${n}.png`, alt: `Баннер ${n}` };
+});
 
-// для GitHub Pages (если используете NEXT_PUBLIC_BASE_PATH=/sk_lkz_v1.0)
 function withBasePath(path: string) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const normalized = path.startsWith("/") ? path : `/${path}`;
+  if (!base) return normalized;
+  if (normalized.startsWith(`${base}/`)) return normalized;
   return `${base}${normalized}`;
 }
 
 export function HomeBanner({
   slides = DEFAULT_SLIDES,
   intervalMs = 10_000,
-  height = 400,
 }: {
   slides?: Slide[];
   intervalMs?: number;
-  height?: number;
 }) {
-  const safeSlides = slides?.length ? slides : DEFAULT_SLIDES;
   const [active, setActive] = React.useState(0);
+  const count = slides.length;
+
+  const go = React.useCallback(
+    (dir: -1 | 1) => {
+      if (count <= 1) return;
+      setActive((i) => (i + dir + count) % count);
+    },
+    [count]
+  );
 
   React.useEffect(() => {
-    if (safeSlides.length <= 1) return;
-    const id = window.setInterval(() => {
-      setActive((v) => (v + 1) % safeSlides.length);
-    }, intervalMs);
+    if (count <= 1) return;
+    const id = window.setInterval(() => setActive((i) => (i + 1) % count), intervalMs);
     return () => window.clearInterval(id);
-  }, [safeSlides.length, intervalMs]);
+  }, [count, intervalMs]);
+
+  if (!count) return null;
 
   return (
-    <div
-      className="relative glass-border w-full rounded-3xl overflow-hidden glass-border"
-      style={{ height }}
-    >
-      {safeSlides.map((s, idx) => {
-        const isActive = idx === active;
+    <div className="w-full">
+      {/* Рамка баннера */}
+      <div className="relative rounded-3xl glass-border overflow-hidden">
+        {/* Слайды */}
+        <div className="relative h-[260px] sm:h-[320px] lg:h-[400px]">
+          {slides.map((s, idx) => {
+            const isActive = idx === active;
+            const src = withBasePath(s.src);
 
-        const layer = (
-          <div
-            key={s.src}
-            className={[
-              "absolute inset-0",
-              "transition-opacity duration-700 ease-out",
-              isActive ? "opacity-100" : "opacity-0",
-            ].join(" ")}
-            aria-hidden={!isActive}
-          >
-            <Image
-              src={withBasePath(s.src)}
-              alt={s.alt}
-              fill
-              sizes="(min-width: 1024px) 1416px, 100vw"
-              priority={idx === 0}
-              className="object-cover"
-            />
-          </div>
-        );
+            const img = (
+              <Image
+                key={src}
+                src={src}
+                alt={s.alt ?? ""}
+                fill
+                priority={idx === 0}
+                className={[
+                  "object-cover",
+                  "transition-opacity duration-700 ease-out",
+                  isActive ? "opacity-100" : "opacity-0",
+                ].join(" ")}
+                sizes="(min-width: 1024px) 1100px, (min-width: 640px) 900px, 100vw"
+              />
+            );
 
-        return s.href ? (
-          <a
-            key={s.src}
-            href={s.href}
-            className="absolute inset-0"
-            aria-label={s.alt}
-          >
-            {layer}
-          </a>
-        ) : (
-          layer
-        );
-      })}
-
-      {safeSlides.length > 1 ? (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
-          {safeSlides.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setActive(i)}
-              aria-label={`Перейти к баннеру ${i + 1}`}
-              className={[
-                "h-2.5 w-2.5 rounded-full",
-                "transition-all duration-300",
-                i === active ? "bg-accent2" : "bg-dark/20",
-              ].join(" ")}
-            />
-          ))}
+            return (
+              <div key={`${src}-${idx}`} className="absolute inset-0">
+                {s.href ? (
+                  <a href={s.href} aria-label={s.alt ?? "Открыть баннер"} className="block h-full w-full">
+                    {img}
+                  </a>
+                ) : (
+                  img
+                )}
+              </div>
+            );
+          })}
         </div>
-      ) : null}
+
+        {/* Выемка слева */}
+        {count > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Предыдущий баннер"
+              className={[
+                "absolute left-0 top-1/2 -translate-y-1/2",
+                "h-24 w-12 sm:h-28 sm:w-14",
+                "bg-bg/90 backdrop-blur-md",
+                "border border-dark/10 dark:border-white/10",
+                "rounded-r-full",
+                "flex items-center justify-center",
+                "hover:bg-bg/95 transition",
+              ].join(" ")}
+            >
+              <ChevronLeft className="h-6 w-6 text-dark/70 dark:text-white/70" />
+            </button>
+
+            {/* Выемка справа */}
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Следующий баннер"
+              className={[
+                "absolute right-0 top-1/2 -translate-y-1/2",
+                "h-24 w-12 sm:h-28 sm:w-14",
+                "bg-bg/90 backdrop-blur-md",
+                "border border-dark/10 dark:border-white/10",
+                "rounded-l-full",
+                "flex items-center justify-center",
+                "hover:bg-bg/95 transition",
+              ].join(" ")}
+            >
+              <ChevronRight className="h-6 w-6 text-dark/70 dark:text-white/70" />
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Точки под баннером */}
+      {count > 1 && (
+        <div className="mt-3 flex items-center justify-center gap-2">
+          {slides.map((_, idx) => {
+            const isActive = idx === active;
+            return (
+              <button
+                key={idx}
+                type="button"
+                aria-label={`Баннер ${idx + 1}`}
+                onClick={() => setActive(idx)}
+                className={[
+                  "h-2.5 w-2.5 rounded-full",
+                  "transition",
+                  isActive ? "bg-accent2" : "bg-dark/20 dark:bg-white/20",
+                ].join(" ")}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
