@@ -41,7 +41,7 @@ export function HomeBanner({
 
   return (
     <div
-      className="relative w-full rounded-3xl overflow-hidden glass-border"
+      className="relative glass-border w-full rounded-3xl overflow-hidden glass-border"
       style={{ height }}
     >
       {safeSlides.map((s, idx) => {
