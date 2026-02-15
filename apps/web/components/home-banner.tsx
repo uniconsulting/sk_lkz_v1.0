@@ -28,17 +28,14 @@ export function HomeBanner({
   slides?: Slide[];
   intervalMs?: number;
 }) {
+  const [active, setActive] = React.useState(0);
   const total = slides.length;
 
-  const [active, setActive] = React.useState(0);
-
   const next = React.useCallback(() => {
-    if (total < 2) return;
     setActive((v) => (v + 1) % total);
   }, [total]);
 
   const prev = React.useCallback(() => {
-    if (total < 2) return;
     setActive((v) => (v - 1 + total) % total);
   }, [total]);
 
@@ -50,8 +47,8 @@ export function HomeBanner({
 
   return (
     <div className="relative">
-      {/* Баннер: rounded + glass-border + МАСКА с выемками */}
-      <div className="relative h-[360px] overflow-hidden rounded-3xl glass-border banner-notch">
+      {/* Баннер: форма задаётся маской banner-notch */}
+      <div className="glass-border banner-notch relative h-[360px] overflow-hidden">
         {slides.map((s, idx) => (
           <Image
             key={s.src}
@@ -68,15 +65,15 @@ export function HomeBanner({
         ))}
       </div>
 
-      {/* Стрелки: сидят в выемках (снаружи баннера), без “ломаных” стыков */}
+      {/* Стрелки: в зоне выемок, кнопки отдельно (не маска) */}
       <button
         type="button"
         onClick={prev}
         aria-label="Предыдущий баннер"
         className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
-                   h-14 w-14 rounded-full bg-bg
+                   z-10 h-12 w-12 rounded-full bg-bg
                    inline-flex items-center justify-center
-                   text-fg/60 hover:text-fg transition-colors
+                   text-fg/70 hover:text-fg transition
                    shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
       >
         <ChevronLeft className="h-6 w-6" />
@@ -87,9 +84,9 @@ export function HomeBanner({
         onClick={next}
         aria-label="Следующий баннер"
         className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
-                   h-14 w-14 rounded-full bg-bg
+                   z-10 h-12 w-12 rounded-full bg-bg
                    inline-flex items-center justify-center
-                   text-fg/60 hover:text-fg transition-colors
+                   text-fg/70 hover:text-fg transition
                    shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
       >
         <ChevronRight className="h-6 w-6" />
@@ -104,7 +101,7 @@ export function HomeBanner({
             onClick={() => setActive(idx)}
             aria-label={`Слайд ${idx + 1}`}
             className={
-              "h-2 w-2 rounded-full transition-colors " +
+              "h-2 w-2 rounded-full transition " +
               (idx === active ? "bg-accent1" : "bg-dark/15")
             }
           />
