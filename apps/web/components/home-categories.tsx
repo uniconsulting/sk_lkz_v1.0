@@ -49,7 +49,7 @@ export function HomeCategories({ items = DEFAULT_ITEMS }: HomeCategoriesProps) {
               <Link
                 href={item.href}
                 className="group block h-full rounded-3xl bg-[#26292e] text-white
-                           border border-white/10 overflow-hidden
+                           glass-border overflow-hidden
                            transition-transform duration-300 hover:-translate-y-1"
               >
                 {/* Было p-10 -> делаем ниже, чтобы карточка стала компактнее */}
