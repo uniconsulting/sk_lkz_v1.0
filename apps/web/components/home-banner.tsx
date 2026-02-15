@@ -73,8 +73,7 @@ export function HomeBanner({
         className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
                    h-14 w-14 rounded-full bg-bg
                    inline-flex items-center justify-center
-                   text-fg/70 hover:text-fg transition
-                   shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+                   text-fg/70 hover:text-fg transition"
       >
         <ChevronLeft className="h-6 w-6" />
       </button>
@@ -84,16 +83,15 @@ export function HomeBanner({
         onClick={next}
         aria-label="Следующий баннер"
         className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
-                   h-14 w-14 rounded-full bg-bg
+                   h-12 w-12 rounded-full bg-bg
                    inline-flex items-center justify-center
-                   text-fg/70 hover:text-fg transition
-                   shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+                   text-fg/70 hover:text-fg transition"
       >
-        <ChevronRight className="h-6 w-6" />
+        <ChevronRight className="h-4 w-4" />
       </button>
 
       {/* Точки: под баннером */}
-      <div className="mt-3 flex items-center justify-center gap-2">
+      <div className="mt-3 flex items-center justify-center gap-4">
         {slides.map((_, idx) => (
           <button
             key={idx}
