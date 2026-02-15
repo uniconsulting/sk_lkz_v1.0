@@ -1,65 +1,111 @@
-// home-banner.tsx (фрагмент обёртки и стрелок)
-// ВАЖНО: стекло/бордюр оставь на OUTER-рамке, а overflow-hidden только на inner
+"use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export function HomeBanner() {
-  // ...твой стейт/таймер/массив слайдов
+type Slide = { src: string; alt?: string; href?: string };
+
+const DEFAULT_SLIDES: Slide[] = [
+  { src: "/banners/01.png", alt: "Баннер 1" },
+  { src: "/banners/02.png", alt: "Баннер 2" },
+  { src: "/banners/03.png", alt: "Баннер 3" },
+  { src: "/banners/04.png", alt: "Баннер 4" },
+  { src: "/banners/05.png", alt: "Баннер 5" },
+  { src: "/banners/06.png", alt: "Баннер 6" },
+];
+
+function withBasePath(path: string) {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}`;
+}
+
+export function HomeBanner({
+  slides = DEFAULT_SLIDES,
+  intervalMs = 10_000,
+}: {
+  slides?: Slide[];
+  intervalMs?: number;
+}) {
+  const [active, setActive] = React.useState(0);
+  const total = slides.length;
+
+  const next = React.useCallback(() => {
+    setActive((v) => (v + 1) % total);
+  }, [total]);
+
+  const prev = React.useCallback(() => {
+    setActive((v) => (v - 1 + total) % total);
+  }, [total]);
+
+  React.useEffect(() => {
+    if (total < 2) return;
+    const id = window.setInterval(next, intervalMs);
+    return () => window.clearInterval(id);
+  }, [next, intervalMs, total]);
 
   return (
-    <div className="w-full">
-      {/* OUTER: стекло + бордюр + видимые выемки (overflow-visible) */}
-      <div className="relative rounded-3xl glass-border overflow-visible">
-        {/* INNER: клип контента баннера */}
-        <div className="relative h-[320px] md:h-[400px] rounded-[inherit] overflow-hidden">
-          {/* тут твои слайды */}
-          {/* пример: */}
-          {/* <Image src={slides[idx].src} alt="" fill className="object-cover" priority /> */}
-        </div>
-
-        {/* Левая стрелка: круг на 1/2 снаружи */}
-        <button
-          type="button"
-          onClick={/* prev */}
-          aria-label="Предыдущий баннер"
-          className="
-            absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20
-            h-12 w-12 md:h-14 md:w-14 rounded-full
-            bg-bg border border-dark/10
-            shadow-[0_12px_28px_rgba(0,0,0,0.12)]
-            grid place-items-center
-            transition-transform duration-300
-            hover:scale-[1.03] active:scale-[0.97]
-          "
-        >
-          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 text-dark/60" />
-        </button>
-
-        {/* Правая стрелка */}
-        <button
-          type="button"
-          onClick={/* next */}
-          aria-label="Следующий баннер"
-          className="
-            absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20
-            h-12 w-12 md:h-14 md:w-14 rounded-full
-            bg-bg border border-dark/10
-            shadow-[0_12px_28px_rgba(0,0,0,0.12)]
-            grid place-items-center
-            transition-transform duration-300
-            hover:scale-[1.03] active:scale-[0.97]
-          "
-        >
-          <ChevronRight className="h-5 w-5 md:h-6 md:w-6 text-dark/60" />
-        </button>
+    <div className="relative">
+      {/* Рамка баннера с выемками */}
+      <div className="glass-border banner-notch rounded-3xl overflow-hidden relative h-[360px]">
+        {slides.map((s, idx) => (
+          <Image
+            key={s.src}
+            src={withBasePath(s.src)}
+            alt={s.alt ?? ""}
+            fill
+            sizes="(min-width: 1024px) 1200px, 100vw"
+            priority={idx === 0}
+            className={
+              "object-cover transition-opacity duration-700 ease-out " +
+              (idx === active ? "opacity-100" : "opacity-0")
+            }
+          />
+        ))}
       </div>
 
-      {/* Точки ВНЕ баннера */}
+      {/* Стрелки: в выемках, но вне маски */}
+      <button
+        type="button"
+        onClick={prev}
+        aria-label="Предыдущий баннер"
+        className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
+                   h-14 w-14 rounded-full bg-bg
+                   inline-flex items-center justify-center
+                   text-fg/70 hover:text-fg transition
+                   shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+      >
+        <ChevronLeft className="h-6 w-6" />
+      </button>
+
+      <button
+        type="button"
+        onClick={next}
+        aria-label="Следующий баннер"
+        className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
+                   h-14 w-14 rounded-full bg-bg
+                   inline-flex items-center justify-center
+                   text-fg/70 hover:text-fg transition
+                   shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+      >
+        <ChevronRight className="h-6 w-6" />
+      </button>
+
+      {/* Точки: под баннером */}
       <div className="mt-3 flex items-center justify-center gap-2">
-        {/* map по slides */}
-        {/* активная: bg-accent1, остальные: bg-dark/20 */}
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setActive(idx)}
+            aria-label={`Слайд ${idx + 1}`}
+            className={
+              "h-2 w-2 rounded-full transition " +
+              (idx === active ? "bg-accent1" : "bg-dark/15")
+            }
+          />
+        ))}
       </div>
     </div>
   );
