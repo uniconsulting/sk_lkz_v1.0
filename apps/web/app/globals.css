@@ -249,7 +249,3 @@ html.dark .header-icon {
     color: #7a72e9; /* либо accent2 #c6cf13, если хочешь “искру” */
   }
 }
-
-  -webkit-mask-position: center;
-  mask-position: center;
-}
