@@ -82,7 +82,6 @@ export function HomeProductsGrid({
                   glass-border rounded-3xl
                   bg-[#26292e]/[0.06]
                   p-4
-                  h-[520px]
                   flex flex-col
                   ring-0 ring-inset
                   transition-[box-shadow,background-color] duration-500
@@ -192,7 +191,6 @@ export function HomeProductsGrid({
                   </span>
                 </div>
 
-                <div className="flex-1" />
               </div>
             </Link>
           );
