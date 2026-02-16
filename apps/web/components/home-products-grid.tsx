@@ -301,6 +301,20 @@ export function HomeProductsGrid({
           );
         })}
       </div>
+      
+            {/* Финальный баннер 1414x400 */}
+      <div className="mt-6">
+        <div className="glass-border rounded-3xl overflow-hidden relative w-full h-[400px]">
+          <Image
+            src={withBasePath("/banners/final.png")}
+            alt="Финальный баннер"
+            fill
+            priority={false}
+            sizes="(min-width: 1024px) 1200px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      </div>
     </section>
   );
 }
