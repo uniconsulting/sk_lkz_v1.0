@@ -1,0 +1,50 @@
+[
+  {
+    "id": "p1",
+    "href": "/product/p1",
+    "imageSrc": "/products/p1.png",
+    "brand": "Симбирские краски",
+    "title": "Интерьерная краска \"Премиум\"",
+    "priceRub": 2890,
+    "showOnHome": true,
+    "homeRank": 10,
+    "showInMega": true,
+    "megaRank": 10
+  },
+  {
+    "id": "p2",
+    "href": "/product/p2",
+    "imageSrc": "/products/p2.png",
+    "brand": "Симбирские краски",
+    "title": "Фасадная краска \"Фасад-Про\"",
+    "priceRub": 3240,
+    "showOnHome": true,
+    "homeRank": 20,
+    "showInMega": true,
+    "megaRank": 20
+  },
+  {
+    "id": "p3",
+    "href": "/product/p3",
+    "imageSrc": "/products/p3.png",
+    "brand": "Симбирские краски",
+    "title": "Краска для дерева и металла, коричневая",
+    "priceRub": 1890,
+    "showOnHome": true,
+    "homeRank": 30,
+    "showInMega": false,
+    "megaRank": 999
+  },
+  {
+    "id": "p4",
+    "href": "/product/p4",
+    "imageSrc": "/products/p4.png",
+    "brand": "Симбирские краски",
+    "title": "Грунтовка глубокого проникновения",
+    "priceRub": 1240,
+    "showOnHome": false,
+    "homeRank": 999,
+    "showInMega": true,
+    "megaRank": 30
+  }
+]
