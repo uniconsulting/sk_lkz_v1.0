@@ -140,7 +140,7 @@ export function Footer({
         </div>
 
         {/* Юридические ссылки */}
-        <div className="mt-12">
+        <div className="mt-24">
           {/* Десктоп: как в референсе, растягиваем по ширине контейнера */}
           {legal4 ? (
             <div
