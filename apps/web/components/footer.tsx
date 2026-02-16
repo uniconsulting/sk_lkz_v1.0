@@ -26,6 +26,15 @@ function withBasePath(path: string) {
   return `${base}${normalized}`;
 }
 
+function Dot() {
+  return (
+    <span
+      aria-hidden
+      className="inline-block h-2 w-2 rounded-full bg-[#9caf88] opacity-90"
+    />
+  );
+}
+
 export function Footer({
   logoSrc = "/logo1.png",
   contacts,
@@ -45,66 +54,70 @@ export function Footer({
   inn?: string;
   ogrn?: string;
 }) {
+  const legal4 = legalLinks.length === 4;
+
   return (
     <footer className="bg-[#26292e] text-white">
-      <Container className="pt-12 pb-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-16">
+      <Container className="pt-14 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[520px_1fr] gap-16">
           {/* Левая колонка: лого + контакты */}
-          <div className="flex flex-col gap-7">
-            {/* Лого ровно по левой направляющей */}
-            <div className="block">
+          <div className="flex flex-col gap-10">
+            <div>
               <Image
                 src={withBasePath(logoSrc)}
                 alt={companyName}
-                width={210}
-                height={60}
+                width={220}
+                height={64}
                 priority={false}
-                className="h-12 w-auto invert brightness-0"
+                className="
+                  h-12 w-auto invert brightness-0 block
+                  -ml-1
+                "
               />
             </div>
 
-            {/* Контакты: фикс колонка под иконку, текст всегда в одной вертикали */}
-            <div className="flex flex-col gap-4 text-[16px]">
+            {/* Контакты: одна вертикальная ось по иконкам */}
+            <div className="grid gap-4 text-[16px]">
               <a
                 href={contacts.phoneHref}
-                className="grid grid-cols-[28px_1fr] items-center gap-4 text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
+                className="
+                  grid grid-cols-[24px_1fr] items-center gap-x-4
+                  text-white/90 hover:text-[#c6cf13]
+                  transition-colors duration-500
+                "
               >
                 <Phone className="h-6 w-6 text-white/75" />
-                <span className="font-semibold leading-snug">
-                  {contacts.phoneLabel}
-                </span>
+                <span className="font-semibold">{contacts.phoneLabel}</span>
               </a>
 
               <a
                 href={contacts.emailHref}
-                className="grid grid-cols-[28px_1fr] items-center gap-4 text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
+                className="
+                  grid grid-cols-[24px_1fr] items-center gap-x-4
+                  text-white/90 hover:text-[#c6cf13]
+                  transition-colors duration-500
+                "
               >
                 <Mail className="h-6 w-6 text-white/75" />
-                <span className="font-semibold leading-snug">
-                  {contacts.emailLabel}
-                </span>
+                <span className="font-semibold">{contacts.emailLabel}</span>
               </a>
 
-              <div className="grid grid-cols-[28px_1fr] items-center gap-4 text-white/90">
+              <div className="grid grid-cols-[24px_1fr] items-center gap-x-4 text-white/90">
                 <MapPin className="h-6 w-6 text-white/75" />
-                <span className="font-semibold leading-snug">
-                  {contacts.addressLabel}
-                </span>
+                <span className="font-semibold">{contacts.addressLabel}</span>
               </div>
 
-              <div className="grid grid-cols-[28px_1fr] items-center gap-4 text-white/90">
+              <div className="grid grid-cols-[24px_1fr] items-center gap-x-4 text-white/90">
                 <Clock className="h-6 w-6 text-white/75" />
-                <span className="font-semibold leading-snug">
-                  {contacts.hoursLabel}
-                </span>
+                <span className="font-semibold">{contacts.hoursLabel}</span>
               </div>
             </div>
           </div>
 
           {/* Правая часть: 3 колонки */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-14">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-16">
             {columns.map((col) => (
-              <div key={col.title}>
+              <div key={col.title} className="pt-1">
                 <div className="text-[22px] font-semibold text-white/95">
                   {col.title}
                 </div>
@@ -126,25 +139,70 @@ export function Footer({
           </div>
         </div>
 
-        {/* Юридические ссылки (ряд с точками) */}
-        <div className="mt-16 flex flex-wrap items-center gap-y-3 text-[16px]">
-          {legalLinks.map((l, idx) => (
-            <React.Fragment key={l.href}>
+        {/* Юридические ссылки */}
+        <div className="mt-12">
+          {/* Десктоп: как в референсе, растягиваем по ширине контейнера */}
+          {legal4 ? (
+            <div
+              className="
+                hidden lg:grid items-center text-[16px]
+                grid-cols-[auto_18px_1fr_auto_18px_1fr_auto_18px_1fr_auto]
+              "
+            >
               <Link
-                href={l.href}
+                href={legalLinks[0].href}
                 className="font-semibold text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
               >
-                {l.label}
+                {legalLinks[0].label}
               </Link>
+              <Dot />
+              <span />
 
-              {idx !== legalLinks.length - 1 && (
-                <span
-                  aria-hidden
-                  className="mx-6 inline-block h-2 w-2 rounded-full bg-[#9caf88] opacity-90"
-                />
-              )}
-            </React.Fragment>
-          ))}
+              <Link
+                href={legalLinks[1].href}
+                className="font-semibold text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
+              >
+                {legalLinks[1].label}
+              </Link>
+              <Dot />
+              <span />
+
+              <Link
+                href={legalLinks[2].href}
+                className="font-semibold text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
+              >
+                {legalLinks[2].label}
+              </Link>
+              <Dot />
+              <span />
+
+              <Link
+                href={legalLinks[3].href}
+                className="font-semibold text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
+              >
+                {legalLinks[3].label}
+              </Link>
+            </div>
+          ) : null}
+
+          {/* Мобилка/универсально: аккуратный перенос */}
+          <div className="lg:hidden flex flex-wrap items-center gap-y-3 text-[16px]">
+            {legalLinks.map((l, idx) => (
+              <React.Fragment key={l.href}>
+                <Link
+                  href={l.href}
+                  className="font-semibold text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
+                >
+                  {l.label}
+                </Link>
+                {idx !== legalLinks.length - 1 ? (
+                  <span aria-hidden className="mx-5">
+                    <Dot />
+                  </span>
+                ) : null}
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </Container>
 
