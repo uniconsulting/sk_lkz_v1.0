@@ -91,7 +91,7 @@ export function HomeBanner({
       </button>
 
       {/* Точки: под баннером */}
-      <div className="mt-3 flex items-center justify-center gap-4">
+      <div className="mt-5 flex items-center justify-center gap-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
