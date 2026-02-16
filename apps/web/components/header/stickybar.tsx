@@ -27,7 +27,7 @@ export function Stickybar({
             {/* Каталог: уменьшаем расстояние иконка-текст */}
             <button
               type="button"
-              className="h-12 inline-flex items-center gap-4 text-white font-semibold hover:opacity-90 transition px-2"
+              className="h-14 inline-flex items-center gap-4 text-white font-semibold hover:opacity-90 transition px-2"
               aria-label="Каталог продукции"
             >
               {/* БЕЗ широкого враппера w-10/w-12: он и даёт ощущение “километра” */}
