@@ -30,7 +30,7 @@ function Dot() {
   return (
     <span
       aria-hidden
-      className="inline-block h-2 w-2 rounded-full bg-[#9caf88] opacity-90"
+      className="justify-self-center inline-block h-2 w-2 rounded-full bg-[#9caf88] opacity-90"
     />
   );
 }
@@ -114,29 +114,36 @@ export function Footer({
             </div>
           </div>
 
-          {/* Правая часть: 3 колонки */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-16">
-            {columns.map((col) => (
-              <div key={col.title} className="pt-1">
-                <div className="text-[22px] font-semibold text-white/95">
-                  {col.title}
-                </div>
+{/* Правая часть: 3 колонки */}
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-16">
+  {columns.map((col) => {
+    const isCatalog = col.title === "Каталог";
 
-                <ul className="mt-6 space-y-4">
-                  {col.links.map((l) => (
-                    <li key={l.href}>
-                      <Link
-                        href={l.href}
-                        className="text-[16px] text-white/80 hover:text-[#c6cf13] transition-colors duration-500"
-                      >
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+    return (
+      <div
+        key={col.title}
+        className={isCatalog ? "pt-1 lg:-ml-8" : "pt-1"}
+      >
+        <div className="text-[22px] font-semibold text-white/95">
+          {col.title}
+        </div>
+
+        <ul className="mt-6 space-y-4">
+          {col.links.map((l) => (
+            <li key={l.href}>
+              <Link
+                href={l.href}
+                className="text-[16px] text-white/80 hover:text-[#c6cf13] transition-colors duration-500"
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  })}
+</div>
         </div>
 
         {/* Юридические ссылки */}
@@ -146,7 +153,7 @@ export function Footer({
             <div
               className="
                 hidden lg:grid items-center text-[16px]
-                grid-cols-[auto_18px_1fr_auto_18px_1fr_auto_18px_1fr_auto]
+                grid-cols-[auto_44px_1fr_auto_44px_1fr_auto_44px_1fr_auto]
               "
             >
               <Link
