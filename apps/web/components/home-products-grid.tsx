@@ -192,16 +192,7 @@ export function HomeProductsGrid({
                   </span>
                 </div>
 
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-{/* Мини-баннеры под сеткой 4x3 */}
+                {/* Мини-баннеры под сеткой 4x3 */}
 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
   {Array.from({ length: 4 }).map((_, i) => (
     <div
@@ -215,3 +206,12 @@ export function HomeProductsGrid({
     </div>
   ))}
 </div>
+                
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
