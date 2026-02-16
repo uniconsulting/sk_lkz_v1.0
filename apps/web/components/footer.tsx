@@ -63,7 +63,7 @@ export function Footer({
               />
             </div>
 
-            <div className="flex flex-col gap-5 text-[18px]">
+            <div className="flex flex-col gap-5 text-[16px]">
               <a
                 href={contacts.phoneHref}
                 className="inline-flex items-center gap-4 text-white/90 hover:text-[#c6cf13] transition-colors duration-500"
@@ -105,7 +105,7 @@ export function Footer({
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="text-[18px] text-white/80 hover:text-[#c6cf13] transition-colors duration-500"
+                        className="text-[16px] text-white/80 hover:text-[#c6cf13] transition-colors duration-500"
                       >
                         {l.label}
                       </Link>
@@ -118,7 +118,7 @@ export function Footer({
         </div>
 
         {/* Юридические ссылки (ряд с точками) */}
-        <div className="mt-14 flex flex-wrap items-center gap-y-3 text-[18px]">
+        <div className="mt-14 flex flex-wrap items-center gap-y-3 text-[16px]">
           {legalLinks.map((l, idx) => (
             <React.Fragment key={l.href}>
               <Link
@@ -142,7 +142,7 @@ export function Footer({
       {/* Нижняя полоса */}
       <div className="border-t border-white/10">
         <Container className="py-6">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-[18px] text-white/35">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-[16px] text-white/35">
             <div>© {year} {companyName}. Все права защищены.</div>
             <div className="text-white/25">
               ИНН:{inn} | ОГРН:{ogrn}
