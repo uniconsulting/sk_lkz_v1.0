@@ -62,15 +62,21 @@ export function HomeProductsGrid({
 }: {
   products?: Product[];
 }) {
+  const items = React.useMemo(() => {
+    const src = products?.length ? products : [];
+    if (!src.length) return [];
+    // временно заполняем 12 карточек (4x3)
+    return Array.from({ length: 12 }, (_, i) => src[i % src.length]);
+  }, [products]);
+
   return (
     <section className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.slice(0, 12).map((p) => {
+        {items.map((p, i) => {
           const href = p.href ?? "#";
 
           return (
-            <Link key={p.id} href={href} className="block group">
-              {/* Внешний фрейм */}
+            <Link key={`${p.id}-${i}`} href={href} className="block">
               <div
                 className="
                   glass-border rounded-3xl
@@ -78,41 +84,31 @@ export function HomeProductsGrid({
                   p-4
                   h-[520px]
                   flex flex-col
-                  transition-colors duration-500
-                  group-hover:glass-border-accent2
+                  ring-0 ring-inset
+                  transition-[box-shadow,background-color] duration-500
+                  hover:ring-2 hover:ring-[#9caf88]/80
                 "
               >
                 {/* Фрейм изображения */}
-                <div
-                  className="
-                    glass-border rounded-2xl
-                    bg-white/40
-                    overflow-hidden
-                    relative
-                    h-[300px]
-                  "
-                >
+                <div className="glass-border rounded-2xl bg-white/40 overflow-hidden relative h-[300px]">
                   <Image
                     src={withBasePath(p.imageSrc)}
                     alt={p.title}
                     fill
                     sizes="(min-width: 1024px) 25vw, 100vw"
                     className="object-contain p-6"
-                    priority={false}
                   />
 
-                  {/* Кнопка "Описание" (ссылка на товар) */}
+                  {/* Описание (ссылка) */}
                   <Link
                     href={href}
                     onClick={(e) => e.stopPropagation()}
                     className="
                       absolute left-3 top-3
-                      glass-border
-                      h-9 w-9 rounded-xl
+                      glass-border h-9 w-9 rounded-xl
                       bg-white/55
                       inline-flex items-center justify-center
-                      text-[#26292e]/70
-                      hover:text-[#26292e]
+                      text-[#26292e]/70 hover:text-[#26292e]
                       transition-colors duration-300
                     "
                     aria-label="Описание товара"
@@ -121,22 +117,19 @@ export function HomeProductsGrid({
                     <FileText className="h-5 w-5" />
                   </Link>
 
-                  {/* Кнопка "Избранное" */}
+                  {/* Избранное */}
                   <button
                     type="button"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      // позже подключишь избранное
                     }}
                     className="
                       absolute right-3 top-3
-                      glass-border
-                      h-9 w-9 rounded-xl
+                      glass-border h-9 w-9 rounded-xl
                       bg-white/55
                       inline-flex items-center justify-center
-                      text-[#26292e]/70
-                      hover:text-accent1
+                      text-[#26292e]/70 hover:text-[#c6cf13]
                       transition-colors duration-300
                     "
                     aria-label="Добавить в избранное"
@@ -146,29 +139,23 @@ export function HomeProductsGrid({
                   </button>
                 </div>
 
-                {/* Нижняя строка: цена | разделитель | корзина */}
-                <div className="mt-4 grid grid-cols-[1fr_1px_1fr] items-stretch">
-                  <div
-                    className="
-                      glass-border rounded-2xl
-                      bg-white/35
-                      h-[64px]
-                      flex items-center px-5
-                    "
-                  >
+                {/* Цена | разделитель | корзина */}
+                <div className="mt-4 grid grid-cols-[1fr_28px_1fr] items-stretch">
+                  <div className="glass-border rounded-2xl bg-white/35 h-[64px] flex items-center px-5">
                     <span className="text-[22px] leading-none font-semibold text-[#9caf88]">
                       {formatRub(p.priceRub)}
                     </span>
                   </div>
 
-                  {/* разделитель (обязательный) */}
-                  <div className="mx-3 w-px bg-white/70" />
+                  {/* отдельная колонка под разделитель + воздух */}
+                  <div className="flex items-center justify-center">
+                    <span className="h-10 w-px bg-white/70" />
+                  </div>
 
                   <button
                     type="button"
                     onClick={(e) => {
                       e.preventDefault();
-                      // add-to-cart позже
                     }}
                     className="
                       glass-border rounded-2xl
@@ -180,31 +167,29 @@ export function HomeProductsGrid({
                     "
                     aria-label="Добавить в корзину"
                   >
-                    <ArrowRight className="h-6 w-6 transition-transform duration-300 group-hover/cart:animate-arrow-wiggle" />
+                    <ArrowRight
+                      className="
+                        h-6 w-6
+                        group-hover/cart:animate-[arrowWiggle_0.9s_ease-in-out_infinite]
+                        motion-reduce:animate-none
+                      "
+                    />
                     <ShoppingCart className="h-6 w-6" />
                   </button>
                 </div>
 
-                {/* Бренд */}
-                <div
-                  className="
-                    mt-4 text-[16px] leading-snug font-normal text-[#26292e]
-                    transition-colors duration-500
-                    group-hover:text-accent1
-                  "
-                >
-                  «{p.brand}»
+                {/* Бренд (hover строго по тексту) */}
+                <div className="mt-4 text-[16px] leading-snug font-normal text-[#26292e]">
+                  <span className="hover:text-[#c6cf13] transition-colors duration-500">
+                    «{p.brand}»
+                  </span>
                 </div>
 
-                {/* Название (1 строка, троеточие) */}
-                <div
-                  className="
-                    mt-1 text-[16px] leading-snug text-[#26292e]/40 truncate
-                    transition-colors duration-500
-                    group-hover:text-accent1
-                  "
-                >
-                  {p.title}
+                {/* Название (1 строка + ...) */}
+                <div className="mt-1 text-[16px] leading-snug text-[#26292e]/40 truncate">
+                  <span className="hover:text-[#c6cf13] transition-colors duration-500">
+                    {p.title}
+                  </span>
                 </div>
 
                 <div className="flex-1" />
@@ -213,27 +198,6 @@ export function HomeProductsGrid({
           );
         })}
       </div>
-
-      {/* Локальные анимации */}
-      <style jsx global>{`
-        /* 1) glass-border -> accent2 на hover (нужно, чтобы у тебя был такой класс в globals.css)
-           Если нет, ниже дам минимальный вариант */
-        /* 3) wiggle для стрелки */
-        @keyframes arrow-wiggle {
-          0% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(6px);
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
-        .animate-arrow-wiggle {
-          animation: arrow-wiggle 0.9s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 }
