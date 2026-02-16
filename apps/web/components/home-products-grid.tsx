@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,18 +14,16 @@ import {
 import {
   getHomeProducts,
   getMegaProducts,
-  type Product,
+  type Product as StoreProduct,
 } from "../lib/products-store";
 
-type MiniBanner = { id: string; src?: string; alt?: string; href?: string };
+import {
+  getHomeMiniBanners,
+  getFinalBannerSrc,
+  type MiniBanner,
+} from "../lib/home-content-store";
 
-// пока статично (позже легко вынесем в JSON + стор)
-const DEFAULT_MINI_BANNERS: MiniBanner[] = [
-  { id: "m1", src: "/mini-banners/01.png", alt: "Мини-баннер 1" },
-  { id: "m2", src: "/mini-banners/02.png", alt: "Мини-баннер 2" },
-  { id: "m3", src: "/mini-banners/03.png", alt: "Мини-баннер 3" },
-  { id: "m4", src: "/mini-banners/04.png", alt: "Мини-баннер 4" },
-];
+type Product = StoreProduct;
 
 function withBasePath(path: string) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -180,17 +180,20 @@ function ProductCard({
 }
 
 export function HomeProductsGrid({
-  miniBanners = DEFAULT_MINI_BANNERS,
-  finalBannerSrc = "/banners/final.png",
+  homeProducts,
+  megaProducts,
+  miniBanners,
+  finalBannerSrc,
 }: {
+  homeProducts?: Product[];
+  megaProducts?: Product[];
   miniBanners?: MiniBanner[];
   finalBannerSrc?: string;
 }) {
-  // ✅ 12 карточек для витрины (управляется JSON: showOnHome/homeRank)
-  const items12 = React.useMemo(() => getHomeProducts(12), []);
-
-  // ✅ 8 карточек для “Специальное предложение” (управляется JSON: showInMega/megaRank)
-  const items8 = React.useMemo(() => getMegaProducts(8), []);
+  const items12 = homeProducts ?? getHomeProducts(12);
+  const items8 = megaProducts ?? getMegaProducts(8);
+  const banners = miniBanners ?? getHomeMiniBanners(4);
+  const finalSrc = finalBannerSrc ?? getFinalBannerSrc();
 
   return (
     <section className="w-full">
@@ -204,7 +207,7 @@ export function HomeProductsGrid({
 
       {/* Мини-баннеры 4 в ряд */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {miniBanners.slice(0, 4).map((b, i) => {
+        {banners.slice(0, 4).map((b, i) => {
           const content = b.src ? (
             <Image
               src={withBasePath(b.src)}
@@ -261,10 +264,9 @@ export function HomeProductsGrid({
       <div className="mt-8">
         <div className="glass-border rounded-3xl overflow-hidden relative w-full h-[400px]">
           <Image
-            src={withBasePath(finalBannerSrc)}
+            src={withBasePath(finalSrc)}
             alt="Финальный баннер"
             fill
-            priority={false}
             sizes="(min-width: 1024px) 1200px, 100vw"
             className="object-cover"
           />
