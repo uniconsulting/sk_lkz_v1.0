@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Slide = { src: string; alt?: string; href?: string };
 
@@ -35,10 +34,6 @@ export function HomeBanner({
     setActive((v) => (v + 1) % total);
   }, [total]);
 
-  const prev = React.useCallback(() => {
-    setActive((v) => (v - 1 + total) % total);
-  }, [total]);
-
   React.useEffect(() => {
     if (total < 2) return;
     const id = window.setInterval(next, intervalMs);
@@ -47,8 +42,8 @@ export function HomeBanner({
 
   return (
     <div className="relative">
-      {/* Рамка баннера с выемками */}
-      <div className="glass-border banner-notch rounded-3xl overflow-hidden relative h-[360px]">
+      {/* Обычная рамка баннера, без выемок */}
+      <div className="glass-border rounded-3xl overflow-hidden relative h-[360px]">
         {slides.map((s, idx) => (
           <Image
             key={s.src}
@@ -64,31 +59,6 @@ export function HomeBanner({
           />
         ))}
       </div>
-
-      {/* Стрелки: в выемках, но вне маски */}
-      <button
-        type="button"
-        onClick={prev}
-        aria-label="Предыдущий баннер"
-        className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
-                   h-14 w-10 rounded-2xl bg-bg
-                   inline-flex items-center justify-center
-                   text-fg/70 hover:text-fg transition"
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </button>
-
-      <button
-        type="button"
-        onClick={next}
-        aria-label="Следующий баннер"
-        className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
-                   h-14 w-10 rounded-2xl bg-bg
-                   inline-flex items-center justify-center
-                   text-fg/70 hover:text-fg transition"
-      >
-        <ChevronRight className="h-5 w-5" />
-      </button>
 
       {/* Точки: под баннером */}
       <div className="mt-6 flex items-center justify-center gap-2">
