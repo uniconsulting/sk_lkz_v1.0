@@ -1,0 +1,9 @@
+{
+  "miniBanners": [
+    { "id": "m1", "src": "/mini-banners/01.png", "alt": "Мини-баннер 1" },
+    { "id": "m2", "src": "/mini-banners/02.png", "alt": "Мини-баннер 2" },
+    { "id": "m3", "src": "/mini-banners/03.png", "alt": "Мини-баннер 3" },
+    { "id": "m4", "src": "/mini-banners/04.png", "alt": "Мини-баннер 4" }
+  ],
+  "finalBannerSrc": "/banners/final.png"
+}
