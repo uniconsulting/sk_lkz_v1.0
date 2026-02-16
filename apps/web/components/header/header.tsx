@@ -1,3 +1,4 @@
+import React from "react";
 import { Stickybar } from "./stickybar";
 import { Topbar, type TopNavItem } from "./topbar";
 import { ThemeToggle } from "./theme-toggle";
@@ -12,9 +13,14 @@ export type HeaderProps = {
 
 export function Header(props: HeaderProps) {
   return (
-    <header className="w-full">
-      <Topbar {...props} themeSlot={<ThemeToggle />} />
+    <>
+      {/* Верхняя часть - обычный header */}
+      <header className="w-full relative z-[70]">
+        <Topbar {...props} themeSlot={<ThemeToggle />} />
+      </header>
+
+      {/* Нижняя часть - sticky ДОЛЖНА быть вне <header> */}
       <Stickybar />
-    </header>
+    </>
   );
 }
