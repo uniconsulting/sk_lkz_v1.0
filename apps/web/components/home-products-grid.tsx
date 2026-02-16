@@ -70,7 +70,7 @@ export function HomeProductsGrid({
   }, [products]);
 
   return (
-    <section className="w-full">
+    <section className="mt-6 w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {items.map((p, i) => {
           const href = p.href ?? "#";
