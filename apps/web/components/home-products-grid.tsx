@@ -200,3 +200,18 @@ export function HomeProductsGrid({
     </section>
   );
 }
+
+{/* Мини-баннеры под сеткой 4x3 */}
+<div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  {Array.from({ length: 4 }).map((_, i) => (
+    <div
+      key={i}
+      className="glass-border rounded-3xl h-[320px] overflow-hidden"
+    >
+      {/* Заглушка под картинку/контент мини-баннера */}
+      <div className="h-full w-full flex items-center justify-center text-fg/40 text-sm">
+        Мини-баннер {i + 1}
+      </div>
+    </div>
+  ))}
+</div>
