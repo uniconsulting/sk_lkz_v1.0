@@ -71,7 +71,7 @@ export function HomeBanner({
         onClick={prev}
         aria-label="Предыдущий баннер"
         className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2
-                   h-13 w-13 rounded-full bg-bg
+                   h-14 w-14 rounded-full bg-bg
                    inline-flex items-center justify-center
                    text-fg/70 hover:text-fg transition"
       >
@@ -83,7 +83,7 @@ export function HomeBanner({
         onClick={next}
         aria-label="Следующий баннер"
         className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2
-                   h-13 w-13 rounded-full bg-bg
+                   h-14 w-14 rounded-full bg-bg
                    inline-flex items-center justify-center
                    text-fg/70 hover:text-fg transition"
       >
