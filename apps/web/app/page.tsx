@@ -5,6 +5,7 @@ import { Header } from "../components/header";
 import { SiteLogo } from "../components/site-logo";
 import { HomeBanner } from "../components/home-banner";
 import { HomeCategories } from "../components/home-categories";
+import { HomeProductsGrid } from "../components/home-products-grid";
 
 export default function HomePage() {
   return (
@@ -26,6 +27,7 @@ export default function HomePage() {
         <Container className="space-y-6">
           <HomeBanner />
           <HomeCategories />
+          <HomeProductsGrid />
         </Container>
       </main>
     </div>
