@@ -12,9 +12,12 @@ import {
   Check,
 } from "lucide-react";
 
-import { getAllProducts, type Product as StoreProduct } from "../../../lib/products-store";
+import {
+  getAllProducts,
+  type Product as StoreProduct,
+} from "../../../lib/products-store";
 
-type AnyProduct = StoreProduct & Record<string, any>;
+type DraftProduct = StoreProduct & Record<string, unknown>;
 
 const LS_KEY = "sk_admin_products_draft_v1";
 
@@ -24,13 +27,23 @@ function withBasePath(path: string) {
   return `${base}${normalized}`;
 }
 
-function safeParseDraft(): AnyProduct[] | null {
+function isObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === "object" && v !== null;
+}
+
+function safeParseDraft(): DraftProduct[] | null {
   try {
     const raw = localStorage.getItem(LS_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw);
+
+    const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return null;
-    return parsed as AnyProduct[];
+
+    const cleaned: DraftProduct[] = parsed
+      .filter(isObject)
+      .map((o) => o as DraftProduct);
+
+    return cleaned.length ? cleaned : null;
   } catch {
     return null;
   }
@@ -52,13 +65,13 @@ function normalizeRank(v: unknown, fallback: number) {
 }
 
 export default function AdminProductsPage() {
-  const base = React.useMemo<AnyProduct[]>(
-    () => getAllProducts().map((p) => ({ ...p })),
+  const base = React.useMemo<DraftProduct[]>(
+    () => getAllProducts().map((p) => ({ ...p } as DraftProduct)),
     [],
   );
 
-  const [items, setItems] = React.useState<AnyProduct[]>(base);
-  const [q, setQ] = React.useState("");
+  const [items, setItems] = React.useState<DraftProduct[]>(base);
+  const [q, setQ] = React.useState<string>("");
   const [savedMark, setSavedMark] = React.useState<"idle" | "saved">("idle");
 
   React.useEffect(() => {
@@ -78,6 +91,7 @@ export default function AdminProductsPage() {
   const filtered = React.useMemo(() => {
     const needle = q.trim().toLowerCase();
     if (!needle) return items;
+
     return items.filter((p) => {
       const hay = `${p.brand ?? ""} ${p.title ?? ""} ${p.id ?? ""}`.toLowerCase();
       return hay.includes(needle);
@@ -85,12 +99,12 @@ export default function AdminProductsPage() {
   }, [items, q]);
 
   const counts = React.useMemo(() => {
-    const home = items.filter((p) => !!p.showOnHome).length;
-    const mega = items.filter((p) => !!p.showInMega).length;
+    const home = items.filter((p) => Boolean(p.showOnHome)).length;
+    const mega = items.filter((p) => Boolean(p.showInMega)).length;
     return { home, mega };
   }, [items]);
 
-  function patch(id: string, next: Partial<AnyProduct>) {
+  function patch(id: string, next: Partial<DraftProduct>) {
     setItems((prev) => prev.map((p) => (p.id === id ? { ...p, ...next } : p)));
   }
 
@@ -98,37 +112,50 @@ export default function AdminProductsPage() {
     setItems((prev) =>
       prev.map((p) => {
         if (p.id !== id) return p;
-        const nextVal = !p[field];
-        const rankField = field === "showOnHome" ? "homeRank" : "megaRank";
+
+        const nextVal = !Boolean(p[field]);
+        const rankField: "homeRank" | "megaRank" =
+          field === "showOnHome" ? "homeRank" : "megaRank";
+
         const rank = normalizeRank(p[rankField], 0);
 
         return {
           ...p,
           [field]: nextVal,
           [rankField]: nextVal ? (rank > 0 ? rank : 10) : p[rankField],
-        };
+        } as DraftProduct;
       }),
     );
   }
 
   function setRank(id: string, field: "homeRank" | "megaRank", value: string) {
-    const n = Number(value);
-    patch(id, { [field]: Number.isFinite(n) ? n : undefined });
+    const raw = value.trim();
+    if (raw === "") {
+      patch(id, { [field]: undefined } as Partial<DraftProduct>);
+      return;
+    }
+    const n = Number(raw);
+    patch(id, { [field]: Number.isFinite(n) ? n : undefined } as Partial<DraftProduct>);
   }
 
-  function autorank(field: "homeRank" | "megaRank", flag: "showOnHome" | "showInMega") {
+  function autorank(
+    field: "homeRank" | "megaRank",
+    flag: "showOnHome" | "showInMega",
+  ) {
     setItems((prev) => {
-      const selected = prev.filter((p) => !!p[flag]);
+      const selected = prev.filter((p) => Boolean(p[flag]));
       const selectedSorted = selected
         .slice()
-        .sort((a, b) => normalizeRank(a[field], 999999) - normalizeRank(b[field], 999999));
+        .sort(
+          (a, b) => normalizeRank(a[field], 999999) - normalizeRank(b[field], 999999),
+        );
 
       const nextMap = new Map<string, number>();
       selectedSorted.forEach((p, idx) => nextMap.set(p.id, (idx + 1) * 10));
 
       return prev.map((p) => {
         if (!p[flag]) return p;
-        return { ...p, [field]: nextMap.get(p.id) };
+        return { ...p, [field]: nextMap.get(p.id) } as DraftProduct;
       });
     });
   }
@@ -150,7 +177,6 @@ export default function AdminProductsPage() {
     try {
       await navigator.clipboard.writeText(json);
     } catch {
-      // fallback
       const ta = document.createElement("textarea");
       ta.value = json;
       document.body.appendChild(ta);
@@ -243,7 +269,7 @@ export default function AdminProductsPage() {
           <Search className="h-5 w-5 text-[#9caf88]" />
           <input
             value={q}
-            onChange={(e) => setQ(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQ(e.target.value)}
             placeholder="Поиск по бренду, названию, id..."
             className="w-full bg-transparent outline-none text-sm text-fg placeholder:text-fg/40"
           />
@@ -254,9 +280,7 @@ export default function AdminProductsPage() {
             <>
               <Check className="h-4 w-4 text-[#9caf88]" /> Черновик сохранён (локально)
             </>
-          ) : (
-            <> </> 
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -310,7 +334,9 @@ export default function AdminProductsPage() {
                   <span className="text-xs text-[#26292e]/45">rank</span>
                   <input
                     value={p.homeRank ?? ""}
-                    onChange={(e) => setRank(p.id, "homeRank", e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setRank(p.id, "homeRank", e.target.value)
+                    }
                     className="glass-border rounded-xl bg-white/55 h-10 w-[92px] px-3 text-sm outline-none text-[#26292e]"
                     inputMode="numeric"
                     placeholder="10"
@@ -338,7 +364,9 @@ export default function AdminProductsPage() {
                   <span className="text-xs text-[#26292e]/45">rank</span>
                   <input
                     value={p.megaRank ?? ""}
-                    onChange={(e) => setRank(p.id, "megaRank", e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setRank(p.id, "megaRank", e.target.value)
+                    }
                     className="glass-border rounded-xl bg-white/55 h-10 w-[92px] px-3 text-sm outline-none text-[#26292e]"
                     inputMode="numeric"
                     placeholder="10"
