@@ -18,7 +18,7 @@ export function Stickybar({
   searchPlaceholder = "умный поиск и не только...",
 }: StickybarProps) {
   return (
-    <div className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
+    <div data-stickybar className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
       {/* было py-3, увеличиваем верхний отступ от линии */}
       <Container className="pt-5 pb-3">
         <div className="flex items-center gap-4">
