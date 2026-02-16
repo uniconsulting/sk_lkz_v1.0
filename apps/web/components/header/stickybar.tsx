@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Container } from "@sk/ui";
 import {
   Calculator,
@@ -18,13 +19,9 @@ export function Stickybar({
   searchPlaceholder = "умный поиск и не только...",
 }: StickybarProps) {
   return (
-    <div
-      data-stickybar
-      className="sticky top-0 z-[80] bg-bg/90 backdrop-blur-md"
-    >
+    <div data-stickybar className="sticky top-0 z-50 bg-bg/90 backdrop-blur-md">
       <Container className="pt-5 pb-3">
         <div className="flex items-center gap-4">
-          {/* Общая пилюля: каталог + поиск */}
           <div className="header-dock glass-border bg-accent1 h-16 rounded-3xl p-2 flex items-center gap-4 flex-1 max-w-[960px]">
             <button
               type="button"
@@ -37,7 +34,6 @@ export function Stickybar({
               </span>
             </button>
 
-            {/* Поиск */}
             <div className="header-search glass-border ui-focus-glass ui-search-wrap bg-white h-12 flex-1 rounded-[18px] px-4 flex items-center gap-3">
               <Search className="h-5 w-5 text-accent1" aria-hidden />
               <input
@@ -47,7 +43,6 @@ export function Stickybar({
             </div>
           </div>
 
-          {/* Кнопки справа */}
           <div className="ml-auto flex items-center gap-3">
             <button
               className="header-icon glass-border bg-white h-16 w-16 rounded-3xl inline-flex items-center justify-center ui-icon-hover-accent1 ui-press"
@@ -70,12 +65,15 @@ export function Stickybar({
               <ShoppingCart className="h-6 w-6" aria-hidden />
             </button>
 
-            <button
+            {/* Вход в ЛК/Админку */}
+            <Link
+              href="/auth?next=/admin"
               className="header-icon glass-border bg-accent1 h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white ui-press"
               aria-label="Вход в ЛК"
+              title="Вход"
             >
               <User className="h-6 w-6" aria-hidden />
-            </button>
+            </Link>
           </div>
         </div>
       </Container>
