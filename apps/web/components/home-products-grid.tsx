@@ -1,29 +1,29 @@
-"use client";
-
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { ArrowRight, ShoppingCart, Heart, FileText, BadgePercent } from "lucide-react";
+import Image from "next/image";
+import {
+  ArrowRight,
+  ShoppingCart,
+  Heart,
+  FileText,
+  BadgePercent,
+} from "lucide-react";
 
-import { products as STORE_PRODUCTS, miniBanners as STORE_MINI_BANNERS, finalBannerSrc as STORE_FINAL_BANNER_SRC } from "../lib/products-store";
-
-type Product = {
-  id: string;
-  href?: string;
-  imageSrc: string;
-  brand: string;
-  title: string;
-  priceRub: number;
-
-  // флаги/ранги из админки/стора
-  showOnHome?: boolean;
-  homeRank?: number;
-  showInMega?: boolean;
-  megaRank?: number;
-};
+import {
+  getHomeProducts,
+  getMegaProducts,
+  type Product,
+} from "../lib/products-store";
 
 type MiniBanner = { id: string; src?: string; alt?: string; href?: string };
+
+// пока статично (позже легко вынесем в JSON + стор)
+const DEFAULT_MINI_BANNERS: MiniBanner[] = [
+  { id: "m1", src: "/mini-banners/01.png", alt: "Мини-баннер 1" },
+  { id: "m2", src: "/mini-banners/02.png", alt: "Мини-баннер 2" },
+  { id: "m3", src: "/mini-banners/03.png", alt: "Мини-баннер 3" },
+  { id: "m4", src: "/mini-banners/04.png", alt: "Мини-баннер 4" },
+];
 
 function withBasePath(path: string) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -35,44 +35,6 @@ function formatRub(v: number) {
   return new Intl.NumberFormat("ru-RU").format(v) + " ₽";
 }
 
-function clampRank(v: unknown) {
-  const n = typeof v === "number" ? v : Number(v);
-  return Number.isFinite(n) ? n : 9999;
-}
-
-function takeRanked({
-  src,
-  count,
-  pick,
-  rank,
-}: {
-  src: Product[];
-  count: number;
-  pick: (p: Product) => boolean;
-  rank: (p: Product) => number;
-}) {
-  const ranked = src
-    .filter(pick)
-    .slice()
-    .sort((a, b) => rank(a) - rank(b));
-
-  if (!ranked.length) {
-    // если флагов пока нет, просто берём первые N по кругу
-    return Array.from({ length: count }, (_, i) => src[i % src.length]);
-  }
-
-  if (ranked.length >= count) return ranked.slice(0, count);
-
-  // дозаполнение до нужного количества
-  const out = ranked.slice();
-  let i = 0;
-  while (out.length < count) {
-    out.push(ranked[i % ranked.length]);
-    i++;
-  }
-  return out;
-}
-
 function ProductCard({
   p,
   href,
@@ -82,193 +44,153 @@ function ProductCard({
   href: string;
   showDiscountIcon?: boolean;
 }) {
-  const router = useRouter();
-
-  const go = React.useCallback(() => {
-    if (href && href !== "#") router.push(href);
-  }, [href, router]);
-
   return (
-    <div
-      role="link"
-      tabIndex={0}
-      onClick={go}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          go();
-        }
-      }}
-      className="
-        glass-border rounded-3xl
-        bg-[#26292e]/[0.04]
-        p-4
-        flex flex-col
-        ring-0 ring-inset
-        transition-[box-shadow,background-color,border-color] duration-500
-        hover:ring-2 hover:ring-[#9caf88]/80
-        cursor-pointer
-        outline-none
-      "
-    >
-      {/* Фрейм изображения */}
-      <div className="glass-border rounded-2xl bg-white/40 overflow-hidden relative h-[300px]">
-        <Image
-          src={withBasePath(p.imageSrc)}
-          alt={p.title}
-          fill
-          sizes="(min-width: 1024px) 25vw, 100vw"
-          className="object-contain p-6"
-        />
+    <Link href={href} className="block">
+      <div
+        className="
+          glass-border rounded-3xl
+          bg-[#26292e]/[0.04]
+          p-4
+          flex flex-col
+          ring-0 ring-inset
+          transition-[box-shadow,background-color,border-color] duration-500
+          hover:ring-2 hover:ring-[#9caf88]/80
+        "
+      >
+        {/* Фрейм изображения */}
+        <div className="glass-border rounded-2xl bg-white/40 overflow-hidden relative h-[300px]">
+          <Image
+            src={withBasePath(p.imageSrc)}
+            alt={p.title}
+            fill
+            sizes="(min-width: 1024px) 25vw, 100vw"
+            className="object-contain p-6"
+          />
 
-        {/* Описание + скидка (слева сверху) */}
-        <div className="absolute left-3 top-3 flex items-center gap-2">
+          {/* Описание + скидка (слева сверху) */}
+          <div className="absolute left-3 top-3 flex items-center gap-2">
+            <Link
+              href={href}
+              onClick={(e) => e.stopPropagation()}
+              className="
+                glass-border h-9 w-9 rounded-xl
+                bg-white/55
+                inline-flex items-center justify-center
+                text-[#26292e]/70 hover:text-[#26292e]
+                transition-colors duration-300
+              "
+              aria-label="Описание товара"
+              title="Описание"
+            >
+              <FileText className="h-5 w-5" />
+            </Link>
+
+            {showDiscountIcon ? (
+              <div
+                className="
+                  glass-border h-9 w-9 rounded-xl
+                  bg-white/55
+                  inline-flex items-center justify-center
+                  text-[#c6cf13]
+                "
+                aria-label="Скидка"
+                title="Скидка"
+              >
+                <BadgePercent className="h-5 w-5" />
+              </div>
+            ) : null}
+          </div>
+
+          {/* Избранное (справа сверху) */}
           <button
             type="button"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              go();
             }}
             className="
+              absolute right-3 top-3
               glass-border h-9 w-9 rounded-xl
               bg-white/55
               inline-flex items-center justify-center
-              text-[#26292e]/70 hover:text-[#26292e]
+              text-[#26292e]/70 hover:text-[#c6cf13]
               transition-colors duration-300
             "
-            aria-label="Описание товара"
-            title="Описание"
+            aria-label="Добавить в избранное"
+            title="В избранное"
           >
-            <FileText className="h-5 w-5" />
+            <Heart className="h-5 w-5" />
           </button>
-
-          {showDiscountIcon ? (
-            <div
-              className="
-                glass-border h-9 w-9 rounded-xl
-                bg-white/55
-                inline-flex items-center justify-center
-                text-[#c6cf13]
-              "
-              aria-label="Скидка"
-              title="Скидка"
-            >
-              <BadgePercent className="h-5 w-5" />
-            </div>
-          ) : null}
         </div>
 
-        {/* Избранное (справа сверху) */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            // TODO: сюда потом подключим избранное из стора/пользователя
-          }}
-          className="
-            absolute right-3 top-3
-            glass-border h-9 w-9 rounded-xl
-            bg-white/55
-            inline-flex items-center justify-center
-            text-[#26292e]/70 hover:text-[#c6cf13]
-            transition-colors duration-300
-          "
-          aria-label="Добавить в избранное"
-          title="В избранное"
-        >
-          <Heart className="h-5 w-5" />
-        </button>
-      </div>
+        {/* Цена | разделитель | корзина */}
+        <div className="mt-4 grid grid-cols-[1fr_28px_1fr] items-stretch">
+          <div className="glass-border rounded-2xl bg-white/35 h-[64px] flex items-center justify-center text-center">
+            <span className="text-[22px] leading-none font-semibold text-[#9caf88] tabular-nums">
+              {formatRub(p.priceRub)}
+            </span>
+          </div>
 
-      {/* Цена | разделитель | корзина */}
-      <div className="mt-4 grid grid-cols-[1fr_28px_1fr] items-stretch">
-        <div className="glass-border rounded-2xl bg-white/35 h-[64px] flex items-center justify-center text-center">
-          <span className="text-[22px] leading-none font-semibold text-[#9caf88] tabular-nums">
-            {formatRub(p.priceRub)}
+          <div className="flex items-center justify-center">
+            <span className="h-10 w-px bg-white/70" />
+          </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            className="
+              glass-border rounded-2xl
+              bg-[#c6cf13]
+              h-[64px]
+              flex items-center justify-center gap-4
+              text-[#26292e]
+              group/cart
+            "
+            aria-label="Добавить в корзину"
+          >
+            <ArrowRight
+              className="
+                h-6 w-6
+                group-hover/cart:animate-[arrowWiggle_0.9s_ease-in-out_infinite]
+                motion-reduce:animate-none
+              "
+            />
+            <ShoppingCart className="h-6 w-6" />
+          </button>
+        </div>
+
+        {/* Бренд (hover строго по тексту) */}
+        <div className="mt-4 text-[16px] leading-snug font-normal text-[#26292e]">
+          <span className="hover:text-[#9caf88] transition-colors duration-500">
+            «{p.brand}»
           </span>
         </div>
 
-        <div className="flex items-center justify-center">
-          <span className="h-10 w-px bg-white/70" />
+        {/* Название (1 строка + ...) */}
+        <div className="mt-1 text-[16px] leading-snug text-[#26292e]/40 truncate">
+          <span className="hover:text-[#9caf88] transition-colors duration-500">
+            {p.title}
+          </span>
         </div>
-
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            // TODO: сюда потом подключим add-to-cart
-          }}
-          className="
-            glass-border rounded-2xl
-            bg-[#c6cf13]
-            h-[64px]
-            flex items-center justify-center gap-4
-            text-[#26292e]
-            group/cart
-          "
-          aria-label="Добавить в корзину"
-        >
-          <ArrowRight
-            className="
-              h-6 w-6
-              group-hover/cart:animate-[arrowWiggle_0.9s_ease-in-out_infinite]
-              motion-reduce:animate-none
-            "
-          />
-          <ShoppingCart className="h-6 w-6" />
-        </button>
       </div>
-
-      {/* Бренд (hover строго по тексту) */}
-      <div className="mt-4 text-[16px] leading-snug font-normal text-[#26292e]">
-        <span className="hover:text-[#9caf88] transition-colors duration-500">
-          «{p.brand}»
-        </span>
-      </div>
-
-      {/* Название (1 строка + ...) */}
-      <div className="mt-1 text-[16px] leading-snug text-[#26292e]/40 truncate">
-        <span className="hover:text-[#9caf88] transition-colors duration-500">
-          {p.title}
-        </span>
-      </div>
-    </div>
+    </Link>
   );
 }
 
 export function HomeProductsGrid({
-  products = (STORE_PRODUCTS as Product[]) ?? [],
-  miniBanners = (STORE_MINI_BANNERS as MiniBanner[]) ?? [],
-  finalBannerSrc = (STORE_FINAL_BANNER_SRC as string) ?? "/banners/final.png",
+  miniBanners = DEFAULT_MINI_BANNERS,
+  finalBannerSrc = "/banners/final.png",
 }: {
-  products?: Product[];
   miniBanners?: MiniBanner[];
   finalBannerSrc?: string;
 }) {
-  const items12 = React.useMemo(() => {
-    const src = (products ?? []).filter(Boolean);
-    if (!src.length) return [];
-    return takeRanked({
-      src,
-      count: 12,
-      pick: (p) => !!p.showOnHome,
-      rank: (p) => clampRank(p.homeRank),
-    });
-  }, [products]);
+  // ✅ 12 карточек для витрины (управляется JSON: showOnHome/homeRank)
+  const items12 = React.useMemo(() => getHomeProducts(12), []);
 
-  const items8 = React.useMemo(() => {
-    const src = (products ?? []).filter(Boolean);
-    if (!src.length) return [];
-    return takeRanked({
-      src,
-      count: 8,
-      pick: (p) => !!p.showInMega,
-      rank: (p) => clampRank(p.megaRank),
-    });
-  }, [products]);
+  // ✅ 8 карточек для “Специальное предложение” (управляется JSON: showInMega/megaRank)
+  const items8 = React.useMemo(() => getMegaProducts(8), []);
 
   return (
     <section className="w-full">
@@ -276,7 +198,7 @@ export function HomeProductsGrid({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {items12.map((p, i) => {
           const href = p.href ?? "#";
-          return <ProductCard key={`${p.id}-home-${i}`} p={p} href={href} />;
+          return <ProductCard key={`${p.id}-12-${i}`} p={p} href={href} />;
         })}
       </div>
 
@@ -314,19 +236,19 @@ export function HomeProductsGrid({
       </div>
 
       {/* Заголовок */}
-      <div className="mt-4 text-[22px] text-[#26292e] font-semibold">
-        <span className="hover:text-[#9caf88] transition-colors duration-700">
+      <div className="mt-6">
+        <div className="text-[22px] text-[#26292e] font-semibold hover:text-[#9caf88] transition-colors duration-700">
           Специальное предложение
-        </span>
+        </div>
       </div>
 
       {/* 4x2 */}
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {items8.map((p, i) => {
           const href = p.href ?? "#";
           return (
             <ProductCard
-              key={`${p.id}-mega-${i}`}
+              key={`${p.id}-8-${i}`}
               p={p}
               href={href}
               showDiscountIcon
@@ -335,11 +257,11 @@ export function HomeProductsGrid({
         })}
       </div>
 
-      {/* Финальный баннер */}
+      {/* Финальный баннер 1414x400 */}
       <div className="mt-8">
         <div className="glass-border rounded-3xl overflow-hidden relative w-full h-[400px]">
           <Image
-            src={withBasePath ("/banners/final.png")}
+            src={withBasePath(finalBannerSrc)}
             alt="Финальный баннер"
             fill
             priority={false}
