@@ -70,7 +70,7 @@ export function HomeProductsGrid({
   }, [products]);
 
   return (
-    <section className="mt-6 w-full">
+    <section className="w-full">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {items.map((p, i) => {
           const href = p.href ?? "#";
@@ -79,6 +79,7 @@ export function HomeProductsGrid({
             <Link key={`${p.id}-${i}`} href={href} className="block">
               <div
                 className="
+                  mt-6
                   glass-border rounded-3xl
                   bg-[#26292e]/[0.06]
                   p-4
