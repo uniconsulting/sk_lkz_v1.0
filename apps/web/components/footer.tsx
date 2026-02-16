@@ -153,7 +153,7 @@ export function Footer({
             <div
               className="
                 hidden lg:grid items-center text-[16px]
-                grid-cols-[auto_62px_1fr_auto_62px_1fr_auto_62px_1fr_auto]
+                grid-cols-[auto_64px_1fr_auto_64px_1fr_auto_64px_1fr_auto]
               "
             >
               <Link
