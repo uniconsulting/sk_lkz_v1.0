@@ -281,14 +281,14 @@ export function HomeProductsGrid({
       </div>
 
       {/* Заголовок */}
-      <div className="mt-4">
-        <div className="text-[22px] text-[#26292e] hover:text-[#9caf88] transition-colors duration-700">
+      <div className="mt-6">
+        <div className="text-[22px] text-[#26292e] font-semibold hover:text-[#9caf88] transition-colors duration-700">
           Специальное предложение
         </div>
       </div>
 
       {/* 4x2 */}
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {items8.map((p, i) => {
           const href = p.href ?? "#";
           return (
