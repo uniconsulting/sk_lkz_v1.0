@@ -141,11 +141,11 @@ export function HomeProductsGrid({
 
                 {/* Цена | разделитель | корзина */}
                 <div className="mt-4 grid grid-cols-[1fr_28px_1fr] items-stretch">
-                  <div className="glass-border rounded-2xl bg-white/35 h-[64px] flex items-center px-5">
-                    <span className="text-[22px] leading-none font-semibold text-[#9caf88]">
-                      {formatRub(p.priceRub)}
-                    </span>
-                  </div>
+<div className="glass-border rounded-2xl bg-white/35 h-[64px] flex items-center justify-center text-center">
+  <span className="text-[22px] leading-none font-semibold text-[#9caf88] tabular-nums">
+    {formatRub(p.priceRub)}
+  </span>
+</div>
 
                   {/* отдельная колонка под разделитель + воздух */}
                   <div className="flex items-center justify-center">
