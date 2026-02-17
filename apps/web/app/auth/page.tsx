@@ -26,7 +26,7 @@ export default function AuthPage() {
       <main className="py-6">
         <Container>
           <div className="min-h-[calc(100svh-260px)] flex items-center justify-center">
-            <div className="w-full max-w-[1320px]">
+            <div className="w-full max-w-[660px]">
               <div className="text-center">
                 <div className="text-[22px] font-semibold text-[#26292e]">
                   Вход в аккаунт
@@ -36,7 +36,7 @@ export default function AuthPage() {
                 </div>
               </div>
 
-              <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-[520px] w-full p-8">
+              <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-[320px] w-full p-8">
                 <form
                   className="h-full flex flex-col"
                   onSubmit={(e) => {
@@ -69,7 +69,7 @@ export default function AuthPage() {
                       Войти
                     </button>
 
-                    <div className="text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-6 text-center text-[16px] text-[#26292e]/60">
                       Нет аккаунта?{" "}
                       <Link
                         href="/auth/register"
