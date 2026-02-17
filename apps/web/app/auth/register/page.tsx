@@ -286,7 +286,7 @@ export default function RegisterPage() {
                       Уже есть аккаунт?{" "}
                       <Link
                         href="/auth"
-                        className="text-dark hover:text-accent1 transition-colors duration-500 font-semibold"
+                        className="text-dark hover:text-accent1 transition-colors duration-500"
                       >
                         Войти
                       </Link>
