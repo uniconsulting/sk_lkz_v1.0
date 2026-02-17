@@ -21,9 +21,15 @@ const RETAIL_OPTIONS = [
 export default function RegisterPage() {
   const [mode, setMode] = React.useState<RegMode>("business");
   const [bizType, setBizType] = React.useState<BizType>("ooo");
-  const [retailReason, setRetailReason] = React.useState<(typeof RETAIL_OPTIONS)[number]>(
-    RETAIL_OPTIONS[0],
-  );
+  const [retailReasons, setRetailReasons] = React.useState<
+    Array<(typeof RETAIL_OPTIONS)[number]>
+  >([RETAIL_OPTIONS[0]]);
+
+  const toggleRetailReason = (opt: (typeof RETAIL_OPTIONS)[number]) => {
+    setRetailReasons((prev) =>
+      prev.includes(opt) ? prev.filter((x) => x !== opt) : [...prev, opt],
+    );
+  };
 
   return (
     <div>
@@ -44,7 +50,8 @@ export default function RegisterPage() {
         <Container>
           <div className="min-h-[calc(100svh-560px)] flex items-center justify-center">
             <div className="w-full max-w-[1416px]">
-              <div className="text-center">
+              {/* Заголовок слева */}
+              <div className="text-left">
                 <div className="text-[22px] font-semibold text-[#26292e]">
                   Регистрация
                 </div>
@@ -55,13 +62,12 @@ export default function RegisterPage() {
 
               <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-auto w-full p-8">
                 <form
-                  className="h-full flex flex-col"
                   onSubmit={(e) => {
                     e.preventDefault();
                   }}
                 >
-                  {/* переключатель режима */}
-                  <div className="flex items-center justify-center gap-2">
+                  {/* Переключатель режима слева */}
+                  <div className="flex items-center justify-start gap-2">
                     <button
                       type="button"
                       onClick={() => setMode("business")}
@@ -89,16 +95,18 @@ export default function RegisterPage() {
                     </button>
                   </div>
 
-                  <div className="mt-6 flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {mode === "business" ? (
-                      <>
-                        {/* тип бизнеса */}
+                  {/* Контент */}
+                  {mode === "business" ? (
+                    <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                      {/* Левый столбец */}
+                      <div className="flex flex-col gap-4">
+                        {/* ООО / ИП (оптика: чуть вниз текст) */}
                         <div className="glass-border rounded-2xl bg-white/35 p-3 flex items-center gap-2">
                           <button
                             type="button"
                             onClick={() => setBizType("ooo")}
                             className={[
-                              "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300",
+                              "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300 leading-none pt-[10px] pb-[8px]",
                               bizType === "ooo"
                                 ? "bg-[#26292e] text-white"
                                 : "bg-white/55 text-[#26292e]/60 hover:text-[#26292e]",
@@ -110,7 +118,7 @@ export default function RegisterPage() {
                             type="button"
                             onClick={() => setBizType("ip")}
                             className={[
-                              "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300",
+                              "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300 leading-none pt-[10px] pb-[8px]",
                               bizType === "ip"
                                 ? "bg-[#26292e] text-white"
                                 : "bg-white/55 text-[#26292e]/60 hover:text-[#26292e]",
@@ -118,27 +126,6 @@ export default function RegisterPage() {
                           >
                             ИП
                           </button>
-                          <div className="ml-auto text-xs text-[#26292e]/45 pr-2">
-                            По умолчанию: Бизнес
-                          </div>
-                        </div>
-
-                        {/* контакт (логин) */}
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
-                          <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
-                            placeholder="Почта или номер телефона"
-                            autoComplete="username"
-                          />
-                        </div>
-
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
-                          <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
-                            placeholder="Пароль"
-                            type="password"
-                            autoComplete="new-password"
-                          />
                         </div>
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
@@ -163,7 +150,10 @@ export default function RegisterPage() {
                             inputMode="numeric"
                           />
                         </div>
+                      </div>
 
+                      {/* Правый столбец */}
+                      <div className="flex flex-col gap-4">
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
@@ -174,12 +164,33 @@ export default function RegisterPage() {
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
-                            placeholder="Контактное лицо (ФИО)"
+                            placeholder="Почта или номер телефона"
+                            autoComplete="username"
                           />
                         </div>
-                      </>
-                    ) : (
-                      <>
+
+                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                          <input
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            placeholder="Контактное лицо (ФИО)"
+                            autoComplete="name"
+                          />
+                        </div>
+
+                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                          <input
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            placeholder="Пароль"
+                            type="password"
+                            autoComplete="new-password"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                      {/* Левый столбец */}
+                      <div className="flex flex-col gap-4">
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
@@ -219,33 +230,50 @@ export default function RegisterPage() {
                             autoComplete="new-password"
                           />
                         </div>
+                      </div>
 
-                        <div className="glass-border rounded-2xl bg-white/35 p-4">
-                          <div className="text-sm font-semibold text-[#26292e]">
-                            Расскажите, для чего приобретаете лакокрасочную продукцию?
-                          </div>
+                      {/* Правый столбец: форма такой же высоты */}
+                      <div className="glass-border rounded-2xl bg-white/35 p-4 h-full flex flex-col">
+                        <div className="text-sm font-semibold text-[#26292e]">
+                          Расскажите, для чего приобретаете лакокрасочную продукцию?
+                        </div>
 
-                          <div className="mt-3 grid grid-cols-1 gap-2">
-                            {RETAIL_OPTIONS.map((opt) => (
+                        <div className="mt-4 grid grid-cols-1 gap-2 flex-1">
+                          {RETAIL_OPTIONS.map((opt) => {
+                            const checked = retailReasons.includes(opt);
+                            return (
                               <label
                                 key={opt}
-                                className="glass-border rounded-2xl bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer"
+                                className="glass-border rounded-2xl bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
                               >
                                 <input
-                                  type="radio"
-                                  name="retail_reason"
-                                  checked={retailReason === opt}
-                                  onChange={() => setRetailReason(opt)}
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={() => toggleRetailReason(opt)}
+                                  className="sr-only"
                                 />
-                                <span className="text-sm text-[#26292e]/80">{opt}</span>
-                              </label>
-                            ))}
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
 
+                                {/* Кастомная точка bg-primary */}
+                                <span
+                                  aria-hidden
+                                  className={[
+                                    "h-4 w-4 rounded-full border border-[#26292e]/20 transition",
+                                    checked ? "bg-primary" : "bg-transparent",
+                                  ].join(" ")}
+                                />
+
+                                <span className="text-sm text-[#26292e]/80">
+                                  {opt}
+                                </span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* CTA */}
                   <div className="mt-6">
                     <button
                       type="submit"
@@ -262,10 +290,6 @@ export default function RegisterPage() {
                       >
                         Войти
                       </Link>
-                    </div>
-
-                    <div className="mt-2 text-center text-xs text-[#26292e]/40">
-                      Проверку почты/номера пока не делаем.
                     </div>
                   </div>
                 </form>
