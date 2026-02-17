@@ -73,7 +73,7 @@ export default function AuthPage() {
                       Нет аккаунта?{" "}
                       <Link
                         href="/auth/register"
-                        className="text-accent2/60 hover:text-accent2 transition-colors duration-500"
+                        className="text-dark hover:text-accent1 transition-colors duration-500"
                       >
                         Зарегистрироваться
                       </Link>
