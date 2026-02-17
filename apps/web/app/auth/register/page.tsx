@@ -244,7 +244,7 @@ export default function RegisterPage() {
                             return (
                               <label
                                 key={opt}
-                                className="border-dark/40 rounded-lg bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
+                                className="border border-dark/20 rounded-lg bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
                               >
                                 <input
                                   type="checkbox"
