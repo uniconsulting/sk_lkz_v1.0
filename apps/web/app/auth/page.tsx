@@ -44,7 +44,7 @@ export default function AuthPage() {
                   }}
                 >
                   <div className="flex-1 flex flex-col gap-4 justify-center">
-                    <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                    <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                       <input
                         className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                         placeholder="Логин (email/номер телефона)"
@@ -53,7 +53,7 @@ export default function AuthPage() {
                       />
                     </div>
 
-                    <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                    <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                       <input
                         className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                         placeholder="Пароль"
@@ -64,7 +64,7 @@ export default function AuthPage() {
 
                     <button
                       type="submit"
-                      className="glass-border rounded-2xl bg-[#c6cf13] h-[64px] w-full font-semibold text-[#26292e] hover:opacity-90 transition"
+                      className="glass-border rounded-xl bg-[#c6cf13] h-[64px] w-full font-semibold text-[#26292e] hover:opacity-90 transition"
                     >
                       Войти
                     </button>
