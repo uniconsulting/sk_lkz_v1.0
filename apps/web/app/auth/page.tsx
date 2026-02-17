@@ -2,12 +2,68 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Container } from "@sk/ui";
 import { Header } from "../../components/header";
 import { SiteLogo } from "../../components/site-logo";
 import { Footer } from "../../components/footer";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+
+const LS_AUTH_KEY = "sk_auth_session_v1";
+
+type AuthSession = {
+  ok: true;
+  login: string;
+  role: "admin";
+  createdAt: number;
+};
 
 export default function AuthPage() {
+  const router = useRouter();
+
+  const [login, setLogin] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+
+    const l = login.trim();
+    const p = password;
+
+    if (!l) {
+      setError("Введите логин (почта или номер телефона).");
+      return;
+    }
+    if (!p) {
+      setError("Введите пароль.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // ВРЕМЕННО: без бэкенда. Создаём локальную сессию и пускаем в /admin.
+      const session: AuthSession = {
+        ok: true,
+        login: l,
+        role: "admin",
+        createdAt: Date.now(),
+      };
+      localStorage.setItem(LS_AUTH_KEY, JSON.stringify(session));
+
+      router.push("/admin");
+      router.refresh();
+    } catch {
+      setError("Не удалось выполнить вход. Попробуйте ещё раз.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div>
       <Header
@@ -37,36 +93,65 @@ export default function AuthPage() {
               </div>
 
               <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-auto w-full p-8">
-                <form
-                  className="h-full flex flex-col"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                  }}
-                >
+                <form className="h-full flex flex-col" onSubmit={handleSubmit}>
                   <div className="flex-1 flex flex-col gap-4 justify-center">
                     <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                       <input
+                        value={login}
+                        onChange={(e) => setLogin(e.target.value)}
                         className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                         placeholder="Логин (email/номер телефона)"
                         autoComplete="username"
-                        inputMode="email"
+                        inputMode="text"
                       />
                     </div>
 
-                    <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
+                    <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center gap-3">
                       <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                         placeholder="Пароль"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                       />
+
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((v) => !v)}
+                        className="shrink-0 inline-flex items-center justify-center h-10 w-10 rounded-xl text-[#26292e]/60 hover:text-[#26292e] transition-colors"
+                        aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
+                        title={showPassword ? "Скрыть пароль" : "Показать пароль"}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" aria-hidden />
+                        ) : (
+                          <Eye className="h-5 w-5" aria-hidden />
+                        )}
+                      </button>
                     </div>
+
+                    {error ? (
+                      <div className="text-sm text-[#26292e]/70">
+                        <span className="glass-border inline-block rounded-2xl bg-white/55 px-4 py-2">
+                          {error}
+                        </span>
+                      </div>
+                    ) : null}
 
                     <button
                       type="submit"
-                      className="glass-border rounded-xl bg-[#c6cf13] h-[64px] w-full font-semibold text-[#26292e] hover:opacity-90 transition"
+                      disabled={loading}
+                      className="glass-border rounded-xl bg-[#c6cf13] h-[64px] w-full font-semibold text-[#26292e] hover:opacity-90 transition disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      Войти
+                      {loading ? (
+                        <span className="inline-flex items-center justify-center gap-2">
+                          <Loader2 className="h-5 w-5 animate-spin" />
+                          Входим...
+                        </span>
+                      ) : (
+                        "Войти"
+                      )}
                     </button>
 
                     <div className="mt-4 text-center text-[16px] text-[#26292e]/60">
