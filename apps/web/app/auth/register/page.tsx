@@ -282,7 +282,7 @@ export default function RegisterPage() {
                       Создать аккаунт
                     </button>
 
-                    <div className="mt-4 text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-1 text-center text-[16px] text-[#26292e]/60">
                       Уже есть аккаунт?{" "}
                       <Link
                         href="/auth"
