@@ -244,7 +244,7 @@ export default function RegisterPage() {
                             return (
                               <label
                                 key={opt}
-                                className="glass-border rounded-xl bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
+                                className="border-dark/40 rounded-lg bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
                               >
                                 <input
                                   type="checkbox"
@@ -257,7 +257,7 @@ export default function RegisterPage() {
                                 <span
                                   aria-hidden
                                   className={[
-                                    "h-4 w-4 rounded-full border border-[#26292e]/20 transition",
+                                    "h-2 w-2 rounded-full border border-[#26292e]/20 transition",
                                     checked ? "bg-primary" : "bg-transparent",
                                   ].join(" ")}
                                 />
