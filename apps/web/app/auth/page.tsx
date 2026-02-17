@@ -69,7 +69,7 @@ export default function AuthPage() {
                       Войти
                     </button>
 
-                    <div className="mt-8 text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-4 text-center text-[16px] text-[#26292e]/60">
                       Нет аккаунта?{" "}
                       <Link
                         href="/auth/register"
