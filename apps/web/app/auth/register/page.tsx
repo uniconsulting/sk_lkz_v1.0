@@ -234,7 +234,7 @@ export default function RegisterPage() {
 
                       {/* Правый столбец: форма такой же высоты */}
                       <div className="glass-border rounded-xl bg-white/35 p-4 h-full flex flex-col">
-                        <div className="text-[18px] font-semibold text-[#26292e]/60">
+                        <div className="text-[17px] font-semibold text-[#26292e]/60">
                           Расскажите, для чего приобретаете лакокрасочную продукцию?
                         </div>
 
