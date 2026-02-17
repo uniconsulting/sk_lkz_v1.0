@@ -72,7 +72,7 @@ export default function RegisterPage() {
                       type="button"
                       onClick={() => setMode("business")}
                       className={[
-                        "glass-border rounded-2xl px-4 py-2 text-sm font-semibold transition-colors duration-300",
+                        "glass-border rounded-xl px-4 py-2 text-sm font-semibold transition-colors duration-300",
                         mode === "business"
                           ? "bg-[#9caf88] text-white"
                           : "bg-white/50 text-[#26292e]/60 hover:text-[#26292e]",
@@ -85,7 +85,7 @@ export default function RegisterPage() {
                       type="button"
                       onClick={() => setMode("retail")}
                       className={[
-                        "glass-border rounded-2xl px-4 py-2 text-sm font-semibold transition-colors duration-300",
+                        "glass-border rounded-xl px-4 py-2 text-sm font-semibold transition-colors duration-300",
                         mode === "retail"
                           ? "bg-[#c6cf13] text-[#26292e]"
                           : "bg-white/50 text-[#26292e]/60 hover:text-[#26292e]",
@@ -101,12 +101,12 @@ export default function RegisterPage() {
                       {/* Левый столбец */}
                       <div className="flex flex-col gap-4">
                         {/* ООО / ИП (оптика: чуть вниз текст) */}
-                        <div className="glass-border rounded-2xl bg-white/35 h-[64px] px-5 flex items-center gap-2">
+                        <div className="glass-border rounded-xl bg-white/35 h-[64px] px-5 flex items-center gap-2">
                           <button
                             type="button"
                             onClick={() => setBizType("ooo")}
                             className={[
-                              "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300 leading-none pt-[10px] pb-[8px]",
+                              "glass-border rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-300 leading-none pt-[10px] pb-[8px]",
                               bizType === "ooo"
                                 ? "bg-[#26292e] text-white"
                                 : "bg-white/55 text-[#26292e]/60 hover:text-[#26292e]",
@@ -118,7 +118,7 @@ export default function RegisterPage() {
                             type="button"
                             onClick={() => setBizType("ip")}
                             className={[
-                              "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300 leading-none pt-[10px] pb-[8px]",
+                              "glass-border rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-300 leading-none pt-[10px] pb-[8px]",
                               bizType === "ip"
                                 ? "bg-[#26292e] text-white"
                                 : "bg-white/55 text-[#26292e]/60 hover:text-[#26292e]",
@@ -128,14 +128,14 @@ export default function RegisterPage() {
                           </button>
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Название компании"
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="ИНН"
@@ -143,7 +143,7 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder={bizType === "ooo" ? "ОГРН" : "ОГРНИП"}
@@ -154,14 +154,14 @@ export default function RegisterPage() {
 
                       {/* Правый столбец */}
                       <div className="flex flex-col gap-4">
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Город"
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Почта или номер телефона"
@@ -169,7 +169,7 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Контактное лицо (ФИО)"
@@ -177,7 +177,7 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Пароль"
@@ -191,7 +191,7 @@ export default function RegisterPage() {
                     <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
                       {/* Левый столбец */}
                       <div className="flex flex-col gap-4">
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Имя"
@@ -199,7 +199,7 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Фамилия"
@@ -207,14 +207,14 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Город"
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Почта или номер телефона"
@@ -222,7 +222,7 @@ export default function RegisterPage() {
                           />
                         </div>
 
-                        <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
+                        <div className="glass-border rounded-xl bg-white h-[64px] px-5 flex items-center">
                           <input
                             className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Пароль"
@@ -233,7 +233,7 @@ export default function RegisterPage() {
                       </div>
 
                       {/* Правый столбец: форма такой же высоты */}
-                      <div className="glass-border rounded-2xl bg-white/35 p-4 h-full flex flex-col">
+                      <div className="glass-border rounded-xl bg-white/35 p-4 h-full flex flex-col">
                         <div className="text-sm font-semibold text-[#26292e]">
                           Расскажите, для чего приобретаете лакокрасочную продукцию?
                         </div>
@@ -244,7 +244,7 @@ export default function RegisterPage() {
                             return (
                               <label
                                 key={opt}
-                                className="glass-border rounded-2xl bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
+                                className="glass-border rounded-xl bg-white/55 px-4 py-3 flex items-center gap-3 cursor-pointer select-none"
                               >
                                 <input
                                   type="checkbox"
@@ -277,12 +277,12 @@ export default function RegisterPage() {
                   <div className="mt-6">
                     <button
                       type="submit"
-                      className="glass-border rounded-2xl bg-[#c6cf13] h-[64px] w-full font-semibold text-[#26292e] hover:opacity-90 transition"
+                      className="glass-border rounded-xl bg-[#c6cf13] h-[64px] w-full font-semibold text-[#26292e] hover:opacity-90 transition"
                     >
                       Создать аккаунт
                     </button>
 
-                    <div className="mt-6 text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-4 text-center text-[16px] text-[#26292e]/60">
                       Уже есть аккаунт?{" "}
                       <Link
                         href="/auth"
