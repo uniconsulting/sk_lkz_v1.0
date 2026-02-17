@@ -46,7 +46,7 @@ export default function AuthPage() {
                   <div className="flex-1 flex flex-col gap-4 justify-center">
                     <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                       <input
-                        className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                        className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                         placeholder="Логин (email/номер телефона)"
                         autoComplete="username"
                         inputMode="email"
@@ -55,7 +55,7 @@ export default function AuthPage() {
 
                     <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                       <input
-                        className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                        className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                         placeholder="Пароль"
                         type="password"
                         autoComplete="current-password"
@@ -69,11 +69,11 @@ export default function AuthPage() {
                       Войти
                     </button>
 
-                    <div className="text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-2 text-center text-[16px] text-[#26292e]/60">
                       Нет аккаунта?{" "}
                       <Link
                         href="/auth/register"
-                        className="mt-1 text-[#26292e] hover:text-[#9caf88] transition-colors duration-500 font-semibold"
+                        className="text-[#26292e] hover:text-[#9caf88] transition-colors duration-500 font-semibold"
                       >
                         Зарегистрироваться
                       </Link>
