@@ -75,7 +75,7 @@ export default function RegisterPage() {
                         "glass-border rounded-2xl px-4 py-2 text-sm font-semibold transition-colors duration-300",
                         mode === "business"
                           ? "bg-[#9caf88] text-[#26292e]"
-                          : "bg-white/50 text-[#26292e]/60 hover:text-[#26292e]",
+                          : "bg-white/50 text-[#26292e]/60 hover:text-white",
                       ].join(" ")}
                     >
                       Бизнес (ООО/ИП)
@@ -101,7 +101,7 @@ export default function RegisterPage() {
                       {/* Левый столбец */}
                       <div className="flex flex-col gap-4">
                         {/* ООО / ИП (оптика: чуть вниз текст) */}
-                        <div className="glass-border rounded-2xl bg-white/35 p-3 flex items-center gap-2">
+                        <div className="glass-border rounded-2xl bg-white/35 h-[64px] px-5 flex items-center gap-2">
                           <button
                             type="button"
                             onClick={() => setBizType("ooo")}
