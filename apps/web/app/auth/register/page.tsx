@@ -42,8 +42,8 @@ export default function RegisterPage() {
 
       <main className="py-6">
         <Container>
-          <div className="min-h-[calc(100svh-260px)] flex items-center justify-center">
-            <div className="w-full max-w-[1320px]">
+          <div className="min-h-[calc(100svh-560px)] flex items-center justify-center">
+            <div className="w-full max-w-[1416px]">
               <div className="text-center">
                 <div className="text-[22px] font-semibold text-[#26292e]">
                   Регистрация
@@ -53,7 +53,7 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-[520px] w-full p-8">
+              <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-auto w-full p-8">
                 <form
                   className="h-full flex flex-col"
                   onSubmit={(e) => {
