@@ -282,11 +282,11 @@ export default function RegisterPage() {
                       Создать аккаунт
                     </button>
 
-                    <div className="mt-4 text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-8 text-center text-[16px] text-[#26292e]/60">
                       Уже есть аккаунт?{" "}
                       <Link
                         href="/auth"
-                        className="text-[#26292e]/60 hover:text-[#9caf88] transition-colors duration-500 font-semibold"
+                        className="text-dark hover:text-accent1 transition-colors duration-500 font-semibold"
                       >
                         Войти
                       </Link>
