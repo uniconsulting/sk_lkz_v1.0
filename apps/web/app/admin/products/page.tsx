@@ -39,10 +39,7 @@ function safeParseDraft(): DraftProduct[] | null {
     const parsed: unknown = JSON.parse(raw);
     if (!Array.isArray(parsed)) return null;
 
-    const cleaned: DraftProduct[] = parsed
-      .filter(isObject)
-      .map((o) => o as DraftProduct);
-
+    const cleaned: DraftProduct[] = parsed.filter(isObject).map((o) => o as DraftProduct);
     return cleaned.length ? cleaned : null;
   } catch {
     return null;
@@ -62,6 +59,77 @@ function downloadText(filename: string, content: string) {
 function normalizeRank(v: unknown, fallback: number) {
   const n = typeof v === "number" ? v : Number(v);
   return Number.isFinite(n) ? n : fallback;
+}
+
+function Panel({
+  title,
+  icon,
+  accent,
+  enabled,
+  onToggle,
+  rankValue,
+  onRankChange,
+  rankPlaceholder,
+  hint,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  accent: "home" | "mega";
+  enabled: boolean;
+  onToggle: () => void;
+  rankValue: number | undefined;
+  onRankChange: (value: string) => void;
+  rankPlaceholder: string;
+  hint: string;
+}) {
+  const activeBg =
+    accent === "home" ? "bg-[#9caf88]" : "bg-[#c6cf13]";
+  const activeText = "text-[#26292e]";
+
+  return (
+    <div className="glass-border rounded-3xl bg-white/30 p-4">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-[#26292e]/60">{icon}</span>
+          <div className="text-[14px] font-semibold text-[#26292e] truncate">
+            {title}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-pressed={enabled}
+          className={[
+            "glass-border rounded-2xl px-3 py-2 text-sm font-semibold transition-colors duration-300",
+            enabled
+              ? `${activeBg} ${activeText}`
+              : "bg-white/55 text-[#26292e]/60 hover:text-[#26292e] hover:bg-white/70",
+          ].join(" ")}
+          title={hint}
+        >
+          {enabled ? "Вкл" : "Выкл"}
+        </button>
+      </div>
+
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <div className="text-[13px] text-[#26292e]/55 leading-snug">
+          {hint}
+        </div>
+
+        <div className="shrink-0 flex items-center gap-2">
+          <span className="text-xs text-[#26292e]/45">rank</span>
+          <input
+            value={rankValue ?? ""}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onRankChange(e.target.value)}
+            className="glass-border rounded-2xl bg-white/60 h-10 w-[96px] px-3 text-sm outline-none text-[#26292e]"
+            inputMode="numeric"
+            placeholder={rankPlaceholder}
+          />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function AdminProductsPage() {
@@ -146,9 +214,7 @@ export default function AdminProductsPage() {
       const selected = prev.filter((p) => Boolean(p[flag]));
       const selectedSorted = selected
         .slice()
-        .sort(
-          (a, b) => normalizeRank(a[field], 999999) - normalizeRank(b[field], 999999),
-        );
+        .sort((a, b) => normalizeRank(a[field], 999999) - normalizeRank(b[field], 999999));
 
       const nextMap = new Map<string, number>();
       selectedSorted.forEach((p, idx) => nextMap.set(p.id, (idx + 1) * 10));
@@ -192,7 +258,7 @@ export default function AdminProductsPage() {
         <div>
           <div className="text-[22px] font-semibold text-[#26292e]">Товары</div>
           <div className="mt-1 text-sm text-[#26292e]/60">
-            Управляй витриной главной: 4x3 (showOnHome) и “Спецпредложение” (showInMega).
+            Настройка главной витрины: 4x3 (Витрина) и 4x2 (Спецпредложение).
           </div>
         </div>
 
@@ -200,7 +266,7 @@ export default function AdminProductsPage() {
           <div className="glass-border rounded-2xl bg-white/35 px-3 py-2 text-sm text-[#26292e]/70">
             <span className="inline-flex items-center gap-2">
               <Home className="h-4 w-4 text-[#9caf88]" />
-              На главной: <b className="text-[#26292e]">{counts.home}</b>
+              Витрина: <b className="text-[#26292e]">{counts.home}</b>
             </span>
             <span className="mx-3 text-[#26292e]/20">|</span>
             <span className="inline-flex items-center gap-2">
@@ -263,7 +329,6 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
-      {/* Поиск + статус сохранения */}
       <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="glass-border rounded-2xl bg-white h-12 px-4 flex items-center gap-3 w-full sm:max-w-[520px]">
           <Search className="h-5 w-5 text-[#9caf88]" />
@@ -284,98 +349,69 @@ export default function AdminProductsPage() {
         </div>
       </div>
 
-      {/* Список */}
       <div className="mt-6 grid grid-cols-1 gap-4">
-        {filtered.map((p) => (
-          <div
-            key={p.id}
-            className="glass-border rounded-3xl bg-white/35 p-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
-          >
-            <div className="flex items-center gap-4 min-w-0">
-              <div className="glass-border rounded-2xl bg-white/40 relative h-16 w-16 overflow-hidden">
-                <Image
-                  src={withBasePath(p.imageSrc)}
-                  alt={p.title}
-                  fill
-                  sizes="64px"
-                  className="object-contain p-2"
+        {filtered.map((p) => {
+          const showOnHome = Boolean(p.showOnHome);
+          const showInMega = Boolean(p.showInMega);
+
+          return (
+            <div
+              key={p.id}
+              className="glass-border rounded-3xl bg-white/35 p-4"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px_360px] gap-4 items-start">
+                {/* Левая часть: товар */}
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="glass-border rounded-2xl bg-white/40 relative h-16 w-16 overflow-hidden shrink-0">
+                    <Image
+                      src={withBasePath(p.imageSrc)}
+                      alt={p.title}
+                      fill
+                      sizes="64px"
+                      className="object-contain p-2"
+                    />
+                  </div>
+
+                  <div className="min-w-0">
+                    <div className="text-sm text-[#26292e] font-semibold truncate">
+                      {p.brand}
+                    </div>
+                    <div className="text-sm text-[#26292e]/60 truncate">
+                      {p.title}
+                    </div>
+                    <div className="text-xs text-[#26292e]/35 mt-1">id: {p.id}</div>
+                  </div>
+                </div>
+
+                {/* Витрина */}
+                <Panel
+                  title="Витрина 4x3"
+                  icon={<Home className="h-4 w-4 text-[#9caf88]" />}
+                  accent="home"
+                  enabled={showOnHome}
+                  onToggle={() => toggleFlag(p.id, "showOnHome")}
+                  rankValue={typeof p.homeRank === "number" ? p.homeRank : undefined}
+                  onRankChange={(v) => setRank(p.id, "homeRank", v)}
+                  rankPlaceholder="10"
+                  hint="Показывать на главной в сетке 4x3"
+                />
+
+                {/* Спец */}
+                <Panel
+                  title="Спецпредложение 4x2"
+                  icon={<BadgePercent className="h-4 w-4 text-[#c6cf13]" />}
+                  accent="mega"
+                  enabled={showInMega}
+                  onToggle={() => toggleFlag(p.id, "showInMega")}
+                  rankValue={typeof p.megaRank === "number" ? p.megaRank : undefined}
+                  onRankChange={(v) => setRank(p.id, "megaRank", v)}
+                  rankPlaceholder="10"
+                  hint="Показывать на главной в блоке Спецпредложение 4x2"
                 />
               </div>
-
-              <div className="min-w-0">
-                <div className="text-sm text-[#26292e] font-semibold truncate">
-                  {p.brand}
-                </div>
-                <div className="text-sm text-[#26292e]/60 truncate">
-                  {p.title}
-                </div>
-                <div className="text-xs text-[#26292e]/35 mt-1">id: {p.id}</div>
-              </div>
             </div>
-
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-              {/* Витрина */}
-              <div className="glass-border rounded-2xl bg-white/35 px-3 py-3 flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => toggleFlag(p.id, "showOnHome")}
-                  className={[
-                    "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300",
-                    p.showOnHome
-                      ? "bg-[#9caf88] text-[#26292e]"
-                      : "bg-white/50 text-[#26292e]/60 hover:text-[#26292e]",
-                  ].join(" ")}
-                  title="Показывать в сетке 4x3"
-                >
-                  Главная
-                </button>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#26292e]/45">rank</span>
-                  <input
-                    value={p.homeRank ?? ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setRank(p.id, "homeRank", e.target.value)
-                    }
-                    className="glass-border rounded-xl bg-white/55 h-10 w-[92px] px-3 text-sm outline-none text-[#26292e]"
-                    inputMode="numeric"
-                    placeholder="10"
-                  />
-                </div>
-              </div>
-
-              {/* Спец */}
-              <div className="glass-border rounded-2xl bg-white/35 px-3 py-3 flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => toggleFlag(p.id, "showInMega")}
-                  className={[
-                    "glass-border rounded-xl px-3 py-2 text-sm font-semibold transition-colors duration-300",
-                    p.showInMega
-                      ? "bg-[#c6cf13] text-[#26292e]"
-                      : "bg-white/50 text-[#26292e]/60 hover:text-[#26292e]",
-                  ].join(" ")}
-                  title="Показывать в Спецпредложении (4x2)"
-                >
-                  Спец
-                </button>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-[#26292e]/45">rank</span>
-                  <input
-                    value={p.megaRank ?? ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setRank(p.id, "megaRank", e.target.value)
-                    }
-                    className="glass-border rounded-xl bg-white/55 h-10 w-[92px] px-3 text-sm outline-none text-[#26292e]"
-                    inputMode="numeric"
-                    placeholder="10"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+          );
+        })}
 
         {!filtered.length ? (
           <div className="glass-border rounded-3xl bg-white/35 p-6 text-sm text-[#26292e]/60">
@@ -385,8 +421,8 @@ export default function AdminProductsPage() {
       </div>
 
       <div className="mt-8 text-sm text-[#26292e]/55">
-        Чтобы витрина на главной обновилась на сайте: скачай products.json и замени файл
-        <span className="text-[#26292e] font-semibold"> apps/web/data/products.json</span>, потом commit/push.
+        Чтобы витрина на главной обновилась на сайте: скачай products.json и замени файл{" "}
+        <span className="text-[#26292e] font-semibold">apps/web/data/products.json</span>, потом commit/push.
       </div>
     </div>
   );
