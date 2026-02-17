@@ -65,12 +65,11 @@ export function Stickybar({
               <ShoppingCart className="h-6 w-6" aria-hidden />
             </button>
 
-            {/* Вход в ЛК/Админку */}
             <Link
-              href="/auth?next=/admin"
+              href="/auth"
               className="header-icon glass-border bg-accent1 h-16 w-16 rounded-3xl inline-flex items-center justify-center text-white ui-press"
               aria-label="Вход в ЛК"
-              title="Вход"
+              title="Вход в ЛК"
             >
               <User className="h-6 w-6" aria-hidden />
             </Link>
