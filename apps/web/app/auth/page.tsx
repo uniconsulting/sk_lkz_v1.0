@@ -23,7 +23,7 @@ export default function AuthPage() {
         phoneHref="tel:+79648589910"
       />
 
-      <main className="py-6">
+      <main className="py-4">
         <Container>
           <div className="min-h-[calc(100svh-260px)] flex items-center justify-center">
             <div className="w-full max-w-[660px]">
@@ -69,7 +69,7 @@ export default function AuthPage() {
                       Войти
                     </button>
 
-                    <div className="mt-6 text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-3 text-center text-[16px] text-[#26292e]/60">
                       Нет аккаунта?{" "}
                       <Link
                         href="/auth/register"
