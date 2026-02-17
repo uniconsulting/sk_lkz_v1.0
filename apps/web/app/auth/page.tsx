@@ -36,7 +36,7 @@ export default function AuthPage() {
                 </div>
               </div>
 
-              <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-[320px] w-full p-8">
+              <div className="mt-6 glass-border rounded-3xl bg-[#26292e]/[0.04] h-auto w-full p-8">
                 <form
                   className="h-full flex flex-col"
                   onSubmit={(e) => {
@@ -73,7 +73,7 @@ export default function AuthPage() {
                       Нет аккаунта?{" "}
                       <Link
                         href="/auth/register"
-                        className="text-[#26292e]/60 hover:text-[#9caf88] transition-colors duration-500 font-semibold"
+                        className="text-primary/60 hover:text-primary transition-colors duration-500"
                       >
                         Зарегистрироваться
                       </Link>
