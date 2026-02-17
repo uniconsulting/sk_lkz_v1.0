@@ -46,7 +46,7 @@ export default function RegisterPage() {
         phoneHref="tel:+79648589910"
       />
 
-      <main className="py-6">
+      <main className="py-4">
         <Container>
           <div className="min-h-[calc(100svh-520px)] flex items-center justify-center">
             <div className="w-full max-w-[1416px]">
