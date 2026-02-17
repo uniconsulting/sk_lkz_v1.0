@@ -74,8 +74,8 @@ export default function RegisterPage() {
                       className={[
                         "glass-border rounded-2xl px-4 py-2 text-sm font-semibold transition-colors duration-300",
                         mode === "business"
-                          ? "bg-[#9caf88] text-[#26292e]"
-                          : "bg-white/50 text-[#26292e]/60 hover:text-white",
+                          ? "bg-[#9caf88] text-white"
+                          : "bg-white/50 text-[#26292e]/60 hover:text-[#26292e]",
                       ].join(" ")}
                     >
                       Бизнес (ООО/ИП)
@@ -130,14 +130,14 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Название компании"
                           />
                         </div>
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="ИНН"
                             inputMode="numeric"
                           />
@@ -145,7 +145,7 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder={bizType === "ooo" ? "ОГРН" : "ОГРНИП"}
                             inputMode="numeric"
                           />
@@ -156,14 +156,14 @@ export default function RegisterPage() {
                       <div className="flex flex-col gap-4">
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Город"
                           />
                         </div>
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Почта или номер телефона"
                             autoComplete="username"
                           />
@@ -171,7 +171,7 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Контактное лицо (ФИО)"
                             autoComplete="name"
                           />
@@ -179,7 +179,7 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Пароль"
                             type="password"
                             autoComplete="new-password"
@@ -193,7 +193,7 @@ export default function RegisterPage() {
                       <div className="flex flex-col gap-4">
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Имя"
                             autoComplete="given-name"
                           />
@@ -201,7 +201,7 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Фамилия"
                             autoComplete="family-name"
                           />
@@ -209,14 +209,14 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Город"
                           />
                         </div>
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Почта или номер телефона"
                             autoComplete="username"
                           />
@@ -224,7 +224,7 @@ export default function RegisterPage() {
 
                         <div className="glass-border rounded-2xl bg-white h-[64px] px-5 flex items-center">
                           <input
-                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/40"
+                            className="w-full bg-transparent outline-none text-[16px] text-[#26292e] placeholder:text-[#26292e]/60"
                             placeholder="Пароль"
                             type="password"
                             autoComplete="new-password"
@@ -282,11 +282,11 @@ export default function RegisterPage() {
                       Создать аккаунт
                     </button>
 
-                    <div className="mt-4 text-center text-[16px] text-[#26292e]/60">
+                    <div className="mt-6 text-center text-[16px] text-[#26292e]/60">
                       Уже есть аккаунт?{" "}
                       <Link
                         href="/auth"
-                        className="text-[#26292e] hover:text-[#9caf88] transition-colors duration-500 font-semibold"
+                        className="text-[#26292e]/60 hover:text-[#9caf88] transition-colors duration-500 font-semibold"
                       >
                         Войти
                       </Link>
