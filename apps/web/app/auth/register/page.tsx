@@ -48,7 +48,7 @@ export default function RegisterPage() {
 
       <main className="py-6">
         <Container>
-          <div className="min-h-[calc(100svh-560px)] flex items-center justify-center">
+          <div className="min-h-[calc(100svh-520px)] flex items-center justify-center">
             <div className="w-full max-w-[1416px]">
               {/* Заголовок слева */}
               <div className="text-left">
